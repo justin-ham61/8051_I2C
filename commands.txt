@@ -1,0 +1,2 @@
+
+py -m stcgal -p COM5 -P stc89 -a main.ihx
