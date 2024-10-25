@@ -3,6 +3,7 @@
 
 int SCREEN_FLAG = 0x00;
 int BLINK_MODE = 0;
+int BLINK_COUNTER = 0;
 
 void reset_timer(void){
 	TR0 = 0;

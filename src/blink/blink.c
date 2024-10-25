@@ -16,8 +16,7 @@ static int reverse_cyclone = 0b10000000;
 static int dual_direction = 0;
 
 void blink(void){
-	if(counter < 50){
-		counter++;
+	if(BLINK_COUNTER < 50){
 		return;
 	}
 	int mode = BLINK_MODE;
@@ -63,4 +62,5 @@ void blink(void){
 			counter = 0;
 			break;
 	}
+	BLINK_COUNTER = 0;
 }

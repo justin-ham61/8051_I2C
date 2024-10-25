@@ -235,9 +235,9 @@ _current_val::
 ; overlayable items in internal ram
 ;--------------------------------------------------------
 	.area	OSEG    (OVR,DATA)
-_display_poll_i_50000_10:
+_display_poll_i_50000_11:
 	.ds 2
-_display_poll_i_50000_17:
+_display_poll_i_50000_18:
 	.ds 2
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
@@ -285,7 +285,7 @@ _display_poll_i_50000_17:
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
-;	screen.c:8: int table[10] = { 
+;	.\screen.c:8: int table[10] = { 
 	mov	(_table + 0),#0xc0
 	mov	(_table + 1),#0x00
 	mov	((_table + 0x0002) + 0),#0xf9
@@ -306,7 +306,7 @@ _display_poll_i_50000_17:
 	mov	((_table + 0x0010) + 1),#0x00
 	mov	((_table + 0x0012) + 0),#0x90
 	mov	((_table + 0x0012) + 1),#0x00
-;	screen.c:16: int vals[4] = {0, 0, 0, 0};
+;	.\screen.c:16: int vals[4] = {0, 0, 0, 0};
 	clr	a
 	mov	(_vals + 0),a
 	mov	(_vals + 1),a
@@ -316,7 +316,7 @@ _display_poll_i_50000_17:
 	mov	((_vals + 0x0004) + 1),a
 	mov	((_vals + 0x0006) + 0),a
 	mov	((_vals + 0x0006) + 1),a
-;	screen.c:17: int current_val = 0; 
+;	.\screen.c:17: int current_val = 0; 
 	mov	_current_val,a
 	mov	(_current_val + 1),a
 ;--------------------------------------------------------
@@ -333,12 +333,12 @@ _display_poll_i_50000_17:
 ;------------------------------------------------------------
 ;carry                     Allocated to registers r6 r7 
 ;idx                       Allocated to registers r4 r5 
-;i                         Allocated with name '_display_poll_i_50000_10'
+;i                         Allocated with name '_display_poll_i_50000_11'
 ;minus_carry               Allocated to registers r6 r7 
 ;idx                       Allocated to registers r4 r5 
-;i                         Allocated with name '_display_poll_i_50000_17'
+;i                         Allocated with name '_display_poll_i_50000_18'
 ;------------------------------------------------------------
-;	screen.c:19: void display_poll(void)
+;	.\screen.c:19: void display_poll(void)
 ;	-----------------------------------------
 ;	 function display_poll
 ;	-----------------------------------------
@@ -351,7 +351,7 @@ _display_poll:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	screen.c:22: if((SCREEN_FLAG & 0xF0) == 0xF0){
+;	.\screen.c:22: if((SCREEN_FLAG & 0xF0) == 0xF0){
 	mov	a,#0xf0
 	anl	a,_SCREEN_FLAG
 	mov	r6,a
@@ -362,10 +362,10 @@ _display_poll:
 00231$:
 	ljmp	00112$
 00232$:
-;	screen.c:23: int carry = 1;
+;	.\screen.c:23: int carry = 1;
 	mov	r6,#0x01
 	mov	r7,#0x00
-;	screen.c:25: while(carry == 1 && current_val < 9999){
+;	.\screen.c:25: while(carry == 1 && current_val < 9999){
 	mov	r4,#0x00
 	mov	r5,#0x00
 00108$:
@@ -384,7 +384,7 @@ _display_poll:
 	jc	00235$
 	ljmp	00112$
 00235$:
-;	screen.c:26: if(idx > 4){
+;	.\screen.c:26: if(idx > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,r4
@@ -393,23 +393,23 @@ _display_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00103$
-;	screen.c:27: for(int i = 0; i < 4; i++){
+;	.\screen.c:27: for(int i = 0; i < 4; i++){
 	clr	a
-	mov	_display_poll_i_50000_10,a
-	mov	(_display_poll_i_50000_10 + 1),a
+	mov	_display_poll_i_50000_11,a
+	mov	(_display_poll_i_50000_11 + 1),a
 00126$:
 	clr	c
-	mov	a,_display_poll_i_50000_10
+	mov	a,_display_poll_i_50000_11
 	subb	a,#0x04
-	mov	a,(_display_poll_i_50000_10 + 1)
+	mov	a,(_display_poll_i_50000_11 + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00101$
-;	screen.c:28: vals[i] = 0;
-	mov	a,_display_poll_i_50000_10
-	add	a,_display_poll_i_50000_10
+;	.\screen.c:28: vals[i] = 0;
+	mov	a,_display_poll_i_50000_11
+	add	a,_display_poll_i_50000_11
 	mov	r2,a
-	mov	a,(_display_poll_i_50000_10 + 1)
+	mov	a,(_display_poll_i_50000_11 + 1)
 	rlc	a
 	mov	a,r2
 	add	a, #_vals
@@ -417,21 +417,21 @@ _display_poll:
 	mov	@r0,#0x00
 	inc	r0
 	mov	@r0,#0x00
-;	screen.c:27: for(int i = 0; i < 4; i++){
-	inc	_display_poll_i_50000_10
+;	.\screen.c:27: for(int i = 0; i < 4; i++){
+	inc	_display_poll_i_50000_11
 	clr	a
-	cjne	a,_display_poll_i_50000_10,00126$
-	inc	(_display_poll_i_50000_10 + 1)
+	cjne	a,_display_poll_i_50000_11,00126$
+	inc	(_display_poll_i_50000_11 + 1)
 	sjmp	00126$
 00101$:
-;	screen.c:30: current_val = 0;
+;	.\screen.c:30: current_val = 0;
 	clr	a
 	mov	_current_val,a
 	mov	(_current_val + 1),a
-;	screen.c:31: break;
+;	.\screen.c:31: break;
 	sjmp	00112$
 00103$:
-;	screen.c:33: if(vals[idx] == 9){
+;	.\screen.c:33: if(vals[idx] == 9){
 	mov	a,r4
 	add	a,r4
 	mov	r2,a
@@ -446,18 +446,18 @@ _display_poll:
 	dec	r1
 	cjne	r2,#0x09,00105$
 	cjne	r3,#0x00,00105$
-;	screen.c:34: vals[idx] = 0;
+;	.\screen.c:34: vals[idx] = 0;
 	mov	@r1,#0x00
 	inc	r1
 	mov	@r1,#0x00
 	dec	r1
-;	screen.c:35: idx++;
+;	.\screen.c:35: idx++;
 	inc	r4
 	cjne	r4,#0x00,00106$
 	inc	r5
 	sjmp	00106$
 00105$:
-;	screen.c:37: vals[idx] += carry;
+;	.\screen.c:37: vals[idx] += carry;
 	mov	ar2,@r1
 	inc	r1
 	mov	ar3,@r1
@@ -472,11 +472,11 @@ _display_poll:
 	inc	r1
 	mov	@r1,ar3
 	dec	r1
-;	screen.c:38: carry = 0;
+;	.\screen.c:38: carry = 0;
 	mov	r6,#0x00
 	mov	r7,#0x00
 00106$:
-;	screen.c:40: current_val++;
+;	.\screen.c:40: current_val++;
 	inc	_current_val
 	clr	a
 	cjne	a,_current_val,00242$
@@ -484,7 +484,7 @@ _display_poll:
 00242$:
 	ljmp	00108$
 00112$:
-;	screen.c:43: if((SCREEN_FLAG & 0x0F) == 0x0F){
+;	.\screen.c:43: if((SCREEN_FLAG & 0x0F) == 0x0F){
 	mov	a,#0x0f
 	anl	a,_SCREEN_FLAG
 	mov	r6,a
@@ -495,10 +495,10 @@ _display_poll:
 00243$:
 	ljmp	00124$
 00244$:
-;	screen.c:44: int minus_carry = 1;
+;	.\screen.c:44: int minus_carry = 1;
 	mov	r6,#0x01
 	mov	r7,#0x00
-;	screen.c:46: while(minus_carry == 1 && current_val > 0){
+;	.\screen.c:46: while(minus_carry == 1 && current_val > 0){
 	mov	r4,#0x00
 	mov	r5,#0x00
 00120$:
@@ -518,7 +518,7 @@ _display_poll:
 	jc	00247$
 	ljmp	00124$
 00247$:
-;	screen.c:47: if(idx > 4){
+;	.\screen.c:47: if(idx > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,r4
@@ -527,23 +527,23 @@ _display_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00115$
-;	screen.c:48: for(int i = 0; i < 4; i++){
+;	.\screen.c:48: for(int i = 0; i < 4; i++){
 	clr	a
-	mov	_display_poll_i_50000_17,a
-	mov	(_display_poll_i_50000_17 + 1),a
+	mov	_display_poll_i_50000_18,a
+	mov	(_display_poll_i_50000_18 + 1),a
 00129$:
 	clr	c
-	mov	a,_display_poll_i_50000_17
+	mov	a,_display_poll_i_50000_18
 	subb	a,#0x04
-	mov	a,(_display_poll_i_50000_17 + 1)
+	mov	a,(_display_poll_i_50000_18 + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00113$
-;	screen.c:49: vals[i] = 0;
-	mov	a,_display_poll_i_50000_17
-	add	a,_display_poll_i_50000_17
+;	.\screen.c:49: vals[i] = 0;
+	mov	a,_display_poll_i_50000_18
+	add	a,_display_poll_i_50000_18
 	mov	r2,a
-	mov	a,(_display_poll_i_50000_17 + 1)
+	mov	a,(_display_poll_i_50000_18 + 1)
 	rlc	a
 	mov	a,r2
 	add	a, #_vals
@@ -551,21 +551,21 @@ _display_poll:
 	mov	@r0,#0x00
 	inc	r0
 	mov	@r0,#0x00
-;	screen.c:48: for(int i = 0; i < 4; i++){
-	inc	_display_poll_i_50000_17
+;	.\screen.c:48: for(int i = 0; i < 4; i++){
+	inc	_display_poll_i_50000_18
 	clr	a
-	cjne	a,_display_poll_i_50000_17,00129$
-	inc	(_display_poll_i_50000_17 + 1)
+	cjne	a,_display_poll_i_50000_18,00129$
+	inc	(_display_poll_i_50000_18 + 1)
 	sjmp	00129$
 00113$:
-;	screen.c:51: current_val = 0;
+;	.\screen.c:51: current_val = 0;
 	clr	a
 	mov	_current_val,a
 	mov	(_current_val + 1),a
-;	screen.c:52: break;
+;	.\screen.c:52: break;
 	sjmp	00124$
 00115$:
-;	screen.c:54: if(vals[idx] == 0){
+;	.\screen.c:54: if(vals[idx] == 0){
 	mov	a,r4
 	add	a,r4
 	mov	r2,a
@@ -581,18 +581,18 @@ _display_poll:
 	mov	a,r2
 	orl	a,r3
 	jnz	00117$
-;	screen.c:55: vals[idx] = 9;
+;	.\screen.c:55: vals[idx] = 9;
 	mov	@r1,#0x09
 	inc	r1
 	mov	@r1,#0x00
 	dec	r1
-;	screen.c:56: idx++;
+;	.\screen.c:56: idx++;
 	inc	r4
 	cjne	r4,#0x00,00118$
 	inc	r5
 	sjmp	00118$
 00117$:
-;	screen.c:58: vals[idx] -= minus_carry;
+;	.\screen.c:58: vals[idx] -= minus_carry;
 	mov	ar2,@r1
 	inc	r1
 	mov	ar3,@r1
@@ -608,11 +608,11 @@ _display_poll:
 	inc	r1
 	mov	@r1,ar3
 	dec	r1
-;	screen.c:59: minus_carry = 0;
+;	.\screen.c:59: minus_carry = 0;
 	mov	r6,#0x00
 	mov	r7,#0x00
 00118$:
-;	screen.c:61: current_val--;
+;	.\screen.c:61: current_val--;
 	dec	_current_val
 	mov	a,#0xff
 	cjne	a,_current_val,00253$
@@ -620,21 +620,21 @@ _display_poll:
 00253$:
 	ljmp	00120$
 00124$:
-;	screen.c:64: SCREEN_FLAG = 0x00;
+;	.\screen.c:64: SCREEN_FLAG = 0x00;
 	clr	a
 	mov	_SCREEN_FLAG,a
 	mov	(_SCREEN_FLAG + 1),a
-;	screen.c:65: }
+;	.\screen.c:65: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'display'
 ;------------------------------------------------------------
-;	screen.c:68: void display(void)
+;	.\screen.c:68: void display(void)
 ;	-----------------------------------------
 ;	 function display
 ;	-----------------------------------------
 _display:
-;	screen.c:73: P0 = table[vals[0]];
+;	.\screen.c:73: P0 = table[vals[0]];
 	mov	a,_vals
 	add	a,_vals
 	mov	r6,a
@@ -644,16 +644,16 @@ _display:
 	add	a, #_table
 	mov	r1,a
 	mov	_P0,@r1
-;	screen.c:74: P2_3 = 0;
+;	.\screen.c:74: P2_3 = 0;
 ;	assignBit
 	clr	_P2_3
-;	screen.c:75: delay(1);
+;	.\screen.c:75: delay(1);
 	mov	dptr,#0x0001
 	lcall	_delay
-;	screen.c:76: P2_3 = 1;
+;	.\screen.c:76: P2_3 = 1;
 ;	assignBit
 	setb	_P2_3
-;	screen.c:78: P0 = table[vals[1]];
+;	.\screen.c:78: P0 = table[vals[1]];
 	mov	a,(_vals + 0x0002)
 	add	a,acc
 	mov	r6,a
@@ -663,16 +663,16 @@ _display:
 	add	a, #_table
 	mov	r1,a
 	mov	_P0,@r1
-;	screen.c:79: P2_2 = 0;
+;	.\screen.c:79: P2_2 = 0;
 ;	assignBit
 	clr	_P2_2
-;	screen.c:80: delay(1);
+;	.\screen.c:80: delay(1);
 	mov	dptr,#0x0001
 	lcall	_delay
-;	screen.c:81: P2_2 = 1;
+;	.\screen.c:81: P2_2 = 1;
 ;	assignBit
 	setb	_P2_2
-;	screen.c:83: P0 = table[vals[2]];
+;	.\screen.c:83: P0 = table[vals[2]];
 	mov	a,(_vals + 0x0004)
 	add	a,acc
 	mov	r6,a
@@ -682,16 +682,16 @@ _display:
 	add	a, #_table
 	mov	r1,a
 	mov	_P0,@r1
-;	screen.c:84: P2_1 = 0;
+;	.\screen.c:84: P2_1 = 0;
 ;	assignBit
 	clr	_P2_1
-;	screen.c:85: delay(1);
+;	.\screen.c:85: delay(1);
 	mov	dptr,#0x0001
 	lcall	_delay
-;	screen.c:86: P2_1 = 1;
+;	.\screen.c:86: P2_1 = 1;
 ;	assignBit
 	setb	_P2_1
-;	screen.c:88: P0 = table[vals[3]];
+;	.\screen.c:88: P0 = table[vals[3]];
 	mov	a,(_vals + 0x0006)
 	add	a,acc
 	mov	r6,a
@@ -701,16 +701,16 @@ _display:
 	add	a, #_table
 	mov	r1,a
 	mov	_P0,@r1
-;	screen.c:89: P2_0 = 0;
+;	.\screen.c:89: P2_0 = 0;
 ;	assignBit
 	clr	_P2_0
-;	screen.c:90: delay(1);
+;	.\screen.c:90: delay(1);
 	mov	dptr,#0x0001
 	lcall	_delay
-;	screen.c:91: P2_0 = 1;
+;	.\screen.c:91: P2_0 = 1;
 ;	assignBit
 	setb	_P2_0
-;	screen.c:92: }
+;	.\screen.c:92: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

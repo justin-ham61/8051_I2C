@@ -235,10 +235,10 @@
                                     235 ; overlayable items in internal ram
                                     236 ;--------------------------------------------------------
                                     237 	.area	OSEG    (OVR,DATA)
-      000055                        238 _display_poll_i_50000_10:
-      000055                        239 	.ds 2
-      000057                        240 _display_poll_i_50000_17:
-      000057                        241 	.ds 2
+      000057                        238 _display_poll_i_50000_11:
+      000057                        239 	.ds 2
+      000059                        240 _display_poll_i_50000_18:
+      000059                        241 	.ds 2
                                     242 ;--------------------------------------------------------
                                     243 ; indirectly addressable internal ram data
                                     244 ;--------------------------------------------------------
@@ -285,7 +285,7 @@
                                     285 	.area GSINIT  (CODE)
                                     286 	.area GSFINAL (CODE)
                                     287 	.area GSINIT  (CODE)
-                                    288 ;	screen.c:8: int table[10] = { 
+                                    288 ;	.\screen.c:8: int table[10] = { 
       00005F 75 08 C0         [24]  289 	mov	(_table + 0),#0xc0
       000062 75 09 00         [24]  290 	mov	(_table + 1),#0x00
       000065 75 0A F9         [24]  291 	mov	((_table + 0x0002) + 0),#0xf9
@@ -306,7 +306,7 @@
       000092 75 19 00         [24]  306 	mov	((_table + 0x0010) + 1),#0x00
       000095 75 1A 90         [24]  307 	mov	((_table + 0x0012) + 0),#0x90
       000098 75 1B 00         [24]  308 	mov	((_table + 0x0012) + 1),#0x00
-                                    309 ;	screen.c:16: int vals[4] = {0, 0, 0, 0};
+                                    309 ;	.\screen.c:16: int vals[4] = {0, 0, 0, 0};
       00009B E4               [12]  310 	clr	a
       00009C F5 1C            [12]  311 	mov	(_vals + 0),a
       00009E F5 1D            [12]  312 	mov	(_vals + 1),a
@@ -316,7 +316,7 @@
       0000A6 F5 21            [12]  316 	mov	((_vals + 0x0004) + 1),a
       0000A8 F5 22            [12]  317 	mov	((_vals + 0x0006) + 0),a
       0000AA F5 23            [12]  318 	mov	((_vals + 0x0006) + 1),a
-                                    319 ;	screen.c:17: int current_val = 0; 
+                                    319 ;	.\screen.c:17: int current_val = 0; 
       0000AC F5 24            [12]  320 	mov	_current_val,a
       0000AE F5 25            [12]  321 	mov	(_current_val + 1),a
                                     322 ;--------------------------------------------------------
@@ -333,16 +333,16 @@
                                     333 ;------------------------------------------------------------
                                     334 ;carry                     Allocated to registers r6 r7 
                                     335 ;idx                       Allocated to registers r4 r5 
-                                    336 ;i                         Allocated with name '_display_poll_i_50000_10'
+                                    336 ;i                         Allocated with name '_display_poll_i_50000_11'
                                     337 ;minus_carry               Allocated to registers r6 r7 
                                     338 ;idx                       Allocated to registers r4 r5 
-                                    339 ;i                         Allocated with name '_display_poll_i_50000_17'
+                                    339 ;i                         Allocated with name '_display_poll_i_50000_18'
                                     340 ;------------------------------------------------------------
-                                    341 ;	screen.c:19: void display_poll(void)
+                                    341 ;	.\screen.c:19: void display_poll(void)
                                     342 ;	-----------------------------------------
                                     343 ;	 function display_poll
                                     344 ;	-----------------------------------------
-      000134                        345 _display_poll:
+      00015F                        345 _display_poll:
                            000007   346 	ar7 = 0x07
                            000006   347 	ar6 = 0x06
                            000005   348 	ar5 = 0x05
@@ -351,367 +351,367 @@
                            000002   351 	ar2 = 0x02
                            000001   352 	ar1 = 0x01
                            000000   353 	ar0 = 0x00
-                                    354 ;	screen.c:22: if((SCREEN_FLAG & 0xF0) == 0xF0){
-      000134 74 F0            [12]  355 	mov	a,#0xf0
-      000136 55 2E            [12]  356 	anl	a,_SCREEN_FLAG
-      000138 FE               [12]  357 	mov	r6,a
-      000139 7F 00            [12]  358 	mov	r7,#0x00
-      00013B BE F0 05         [24]  359 	cjne	r6,#0xf0,00231$
-      00013E BF 00 02         [24]  360 	cjne	r7,#0x00,00231$
-      000141 80 03            [24]  361 	sjmp	00232$
-      000143                        362 00231$:
-      000143 02 01 EF         [24]  363 	ljmp	00112$
-      000146                        364 00232$:
-                                    365 ;	screen.c:23: int carry = 1;
-      000146 7E 01            [12]  366 	mov	r6,#0x01
-      000148 7F 00            [12]  367 	mov	r7,#0x00
-                                    368 ;	screen.c:25: while(carry == 1 && current_val < 9999){
-      00014A 7C 00            [12]  369 	mov	r4,#0x00
-      00014C 7D 00            [12]  370 	mov	r5,#0x00
-      00014E                        371 00108$:
-      00014E BE 01 05         [24]  372 	cjne	r6,#0x01,00233$
-      000151 BF 00 02         [24]  373 	cjne	r7,#0x00,00233$
-      000154 80 03            [24]  374 	sjmp	00234$
-      000156                        375 00233$:
-      000156 02 01 EF         [24]  376 	ljmp	00112$
-      000159                        377 00234$:
-      000159 C3               [12]  378 	clr	c
-      00015A E5 24            [12]  379 	mov	a,_current_val
-      00015C 94 0F            [12]  380 	subb	a,#0x0f
-      00015E E5 25            [12]  381 	mov	a,(_current_val + 1)
-      000160 64 80            [12]  382 	xrl	a,#0x80
-      000162 94 A7            [12]  383 	subb	a,#0xa7
-      000164 40 03            [24]  384 	jc	00235$
-      000166 02 01 EF         [24]  385 	ljmp	00112$
-      000169                        386 00235$:
-                                    387 ;	screen.c:26: if(idx > 4){
-      000169 C3               [12]  388 	clr	c
-      00016A 74 04            [12]  389 	mov	a,#0x04
-      00016C 9C               [12]  390 	subb	a,r4
-      00016D 74 80            [12]  391 	mov	a,#(0x00 ^ 0x80)
-      00016F 8D F0            [24]  392 	mov	b,r5
-      000171 63 F0 80         [24]  393 	xrl	b,#0x80
-      000174 95 F0            [12]  394 	subb	a,b
-      000176 50 34            [24]  395 	jnc	00103$
-                                    396 ;	screen.c:27: for(int i = 0; i < 4; i++){
-      000178 E4               [12]  397 	clr	a
-      000179 F5 55            [12]  398 	mov	_display_poll_i_50000_10,a
-      00017B F5 56            [12]  399 	mov	(_display_poll_i_50000_10 + 1),a
-      00017D                        400 00126$:
-      00017D C3               [12]  401 	clr	c
-      00017E E5 55            [12]  402 	mov	a,_display_poll_i_50000_10
-      000180 94 04            [12]  403 	subb	a,#0x04
-      000182 E5 56            [12]  404 	mov	a,(_display_poll_i_50000_10 + 1)
-      000184 64 80            [12]  405 	xrl	a,#0x80
-      000186 94 80            [12]  406 	subb	a,#0x80
-      000188 50 1B            [24]  407 	jnc	00101$
-                                    408 ;	screen.c:28: vals[i] = 0;
-      00018A E5 55            [12]  409 	mov	a,_display_poll_i_50000_10
-      00018C 25 55            [12]  410 	add	a,_display_poll_i_50000_10
-      00018E FA               [12]  411 	mov	r2,a
-      00018F E5 56            [12]  412 	mov	a,(_display_poll_i_50000_10 + 1)
-      000191 33               [12]  413 	rlc	a
-      000192 EA               [12]  414 	mov	a,r2
-      000193 24 1C            [12]  415 	add	a, #_vals
-      000195 F8               [12]  416 	mov	r0,a
-      000196 76 00            [12]  417 	mov	@r0,#0x00
-      000198 08               [12]  418 	inc	r0
-      000199 76 00            [12]  419 	mov	@r0,#0x00
-                                    420 ;	screen.c:27: for(int i = 0; i < 4; i++){
-      00019B 05 55            [12]  421 	inc	_display_poll_i_50000_10
-      00019D E4               [12]  422 	clr	a
-      00019E B5 55 DC         [24]  423 	cjne	a,_display_poll_i_50000_10,00126$
-      0001A1 05 56            [12]  424 	inc	(_display_poll_i_50000_10 + 1)
-      0001A3 80 D8            [24]  425 	sjmp	00126$
-      0001A5                        426 00101$:
-                                    427 ;	screen.c:30: current_val = 0;
-      0001A5 E4               [12]  428 	clr	a
-      0001A6 F5 24            [12]  429 	mov	_current_val,a
-      0001A8 F5 25            [12]  430 	mov	(_current_val + 1),a
-                                    431 ;	screen.c:31: break;
-      0001AA 80 43            [24]  432 	sjmp	00112$
-      0001AC                        433 00103$:
-                                    434 ;	screen.c:33: if(vals[idx] == 9){
-      0001AC EC               [12]  435 	mov	a,r4
-      0001AD 2C               [12]  436 	add	a,r4
-      0001AE FA               [12]  437 	mov	r2,a
-      0001AF ED               [12]  438 	mov	a,r5
-      0001B0 33               [12]  439 	rlc	a
-      0001B1 EA               [12]  440 	mov	a,r2
-      0001B2 24 1C            [12]  441 	add	a, #_vals
-      0001B4 F9               [12]  442 	mov	r1,a
-      0001B5 87 02            [24]  443 	mov	ar2,@r1
-      0001B7 09               [12]  444 	inc	r1
-      0001B8 87 03            [24]  445 	mov	ar3,@r1
-      0001BA 19               [12]  446 	dec	r1
-      0001BB BA 09 10         [24]  447 	cjne	r2,#0x09,00105$
-      0001BE BB 00 0D         [24]  448 	cjne	r3,#0x00,00105$
-                                    449 ;	screen.c:34: vals[idx] = 0;
-      0001C1 77 00            [12]  450 	mov	@r1,#0x00
-      0001C3 09               [12]  451 	inc	r1
-      0001C4 77 00            [12]  452 	mov	@r1,#0x00
-      0001C6 19               [12]  453 	dec	r1
-                                    454 ;	screen.c:35: idx++;
-      0001C7 0C               [12]  455 	inc	r4
-      0001C8 BC 00 19         [24]  456 	cjne	r4,#0x00,00106$
-      0001CB 0D               [12]  457 	inc	r5
-      0001CC 80 16            [24]  458 	sjmp	00106$
-      0001CE                        459 00105$:
-                                    460 ;	screen.c:37: vals[idx] += carry;
-      0001CE 87 02            [24]  461 	mov	ar2,@r1
-      0001D0 09               [12]  462 	inc	r1
-      0001D1 87 03            [24]  463 	mov	ar3,@r1
-      0001D3 19               [12]  464 	dec	r1
-      0001D4 EE               [12]  465 	mov	a,r6
-      0001D5 2A               [12]  466 	add	a, r2
-      0001D6 FA               [12]  467 	mov	r2,a
-      0001D7 EF               [12]  468 	mov	a,r7
-      0001D8 3B               [12]  469 	addc	a, r3
-      0001D9 FB               [12]  470 	mov	r3,a
-      0001DA A7 02            [24]  471 	mov	@r1,ar2
-      0001DC 09               [12]  472 	inc	r1
-      0001DD A7 03            [24]  473 	mov	@r1,ar3
-      0001DF 19               [12]  474 	dec	r1
-                                    475 ;	screen.c:38: carry = 0;
-      0001E0 7E 00            [12]  476 	mov	r6,#0x00
-      0001E2 7F 00            [12]  477 	mov	r7,#0x00
-      0001E4                        478 00106$:
-                                    479 ;	screen.c:40: current_val++;
-      0001E4 05 24            [12]  480 	inc	_current_val
-      0001E6 E4               [12]  481 	clr	a
-      0001E7 B5 24 02         [24]  482 	cjne	a,_current_val,00242$
-      0001EA 05 25            [12]  483 	inc	(_current_val + 1)
-      0001EC                        484 00242$:
-      0001EC 02 01 4E         [24]  485 	ljmp	00108$
-      0001EF                        486 00112$:
-                                    487 ;	screen.c:43: if((SCREEN_FLAG & 0x0F) == 0x0F){
-      0001EF 74 0F            [12]  488 	mov	a,#0x0f
-      0001F1 55 2E            [12]  489 	anl	a,_SCREEN_FLAG
-      0001F3 FE               [12]  490 	mov	r6,a
-      0001F4 7F 00            [12]  491 	mov	r7,#0x00
-      0001F6 BE 0F 05         [24]  492 	cjne	r6,#0x0f,00243$
-      0001F9 BF 00 02         [24]  493 	cjne	r7,#0x00,00243$
-      0001FC 80 03            [24]  494 	sjmp	00244$
-      0001FE                        495 00243$:
-      0001FE 02 02 AD         [24]  496 	ljmp	00124$
-      000201                        497 00244$:
-                                    498 ;	screen.c:44: int minus_carry = 1;
-      000201 7E 01            [12]  499 	mov	r6,#0x01
-      000203 7F 00            [12]  500 	mov	r7,#0x00
-                                    501 ;	screen.c:46: while(minus_carry == 1 && current_val > 0){
-      000205 7C 00            [12]  502 	mov	r4,#0x00
-      000207 7D 00            [12]  503 	mov	r5,#0x00
-      000209                        504 00120$:
-      000209 BE 01 05         [24]  505 	cjne	r6,#0x01,00245$
-      00020C BF 00 02         [24]  506 	cjne	r7,#0x00,00245$
-      00020F 80 03            [24]  507 	sjmp	00246$
-      000211                        508 00245$:
-      000211 02 02 AD         [24]  509 	ljmp	00124$
-      000214                        510 00246$:
-      000214 C3               [12]  511 	clr	c
-      000215 E4               [12]  512 	clr	a
-      000216 95 24            [12]  513 	subb	a,_current_val
-      000218 74 80            [12]  514 	mov	a,#(0x00 ^ 0x80)
-      00021A 85 25 F0         [24]  515 	mov	b,(_current_val + 1)
-      00021D 63 F0 80         [24]  516 	xrl	b,#0x80
-      000220 95 F0            [12]  517 	subb	a,b
-      000222 40 03            [24]  518 	jc	00247$
-      000224 02 02 AD         [24]  519 	ljmp	00124$
-      000227                        520 00247$:
-                                    521 ;	screen.c:47: if(idx > 4){
-      000227 C3               [12]  522 	clr	c
-      000228 74 04            [12]  523 	mov	a,#0x04
-      00022A 9C               [12]  524 	subb	a,r4
-      00022B 74 80            [12]  525 	mov	a,#(0x00 ^ 0x80)
-      00022D 8D F0            [24]  526 	mov	b,r5
-      00022F 63 F0 80         [24]  527 	xrl	b,#0x80
-      000232 95 F0            [12]  528 	subb	a,b
-      000234 50 34            [24]  529 	jnc	00115$
-                                    530 ;	screen.c:48: for(int i = 0; i < 4; i++){
-      000236 E4               [12]  531 	clr	a
-      000237 F5 57            [12]  532 	mov	_display_poll_i_50000_17,a
-      000239 F5 58            [12]  533 	mov	(_display_poll_i_50000_17 + 1),a
-      00023B                        534 00129$:
-      00023B C3               [12]  535 	clr	c
-      00023C E5 57            [12]  536 	mov	a,_display_poll_i_50000_17
-      00023E 94 04            [12]  537 	subb	a,#0x04
-      000240 E5 58            [12]  538 	mov	a,(_display_poll_i_50000_17 + 1)
-      000242 64 80            [12]  539 	xrl	a,#0x80
-      000244 94 80            [12]  540 	subb	a,#0x80
-      000246 50 1B            [24]  541 	jnc	00113$
-                                    542 ;	screen.c:49: vals[i] = 0;
-      000248 E5 57            [12]  543 	mov	a,_display_poll_i_50000_17
-      00024A 25 57            [12]  544 	add	a,_display_poll_i_50000_17
-      00024C FA               [12]  545 	mov	r2,a
-      00024D E5 58            [12]  546 	mov	a,(_display_poll_i_50000_17 + 1)
-      00024F 33               [12]  547 	rlc	a
-      000250 EA               [12]  548 	mov	a,r2
-      000251 24 1C            [12]  549 	add	a, #_vals
-      000253 F8               [12]  550 	mov	r0,a
-      000254 76 00            [12]  551 	mov	@r0,#0x00
-      000256 08               [12]  552 	inc	r0
-      000257 76 00            [12]  553 	mov	@r0,#0x00
-                                    554 ;	screen.c:48: for(int i = 0; i < 4; i++){
-      000259 05 57            [12]  555 	inc	_display_poll_i_50000_17
-      00025B E4               [12]  556 	clr	a
-      00025C B5 57 DC         [24]  557 	cjne	a,_display_poll_i_50000_17,00129$
-      00025F 05 58            [12]  558 	inc	(_display_poll_i_50000_17 + 1)
-      000261 80 D8            [24]  559 	sjmp	00129$
-      000263                        560 00113$:
-                                    561 ;	screen.c:51: current_val = 0;
-      000263 E4               [12]  562 	clr	a
-      000264 F5 24            [12]  563 	mov	_current_val,a
-      000266 F5 25            [12]  564 	mov	(_current_val + 1),a
-                                    565 ;	screen.c:52: break;
-      000268 80 43            [24]  566 	sjmp	00124$
-      00026A                        567 00115$:
-                                    568 ;	screen.c:54: if(vals[idx] == 0){
-      00026A EC               [12]  569 	mov	a,r4
-      00026B 2C               [12]  570 	add	a,r4
-      00026C FA               [12]  571 	mov	r2,a
-      00026D ED               [12]  572 	mov	a,r5
-      00026E 33               [12]  573 	rlc	a
-      00026F EA               [12]  574 	mov	a,r2
-      000270 24 1C            [12]  575 	add	a, #_vals
-      000272 F9               [12]  576 	mov	r1,a
-      000273 87 02            [24]  577 	mov	ar2,@r1
-      000275 09               [12]  578 	inc	r1
-      000276 87 03            [24]  579 	mov	ar3,@r1
-      000278 19               [12]  580 	dec	r1
-      000279 EA               [12]  581 	mov	a,r2
-      00027A 4B               [12]  582 	orl	a,r3
-      00027B 70 0D            [24]  583 	jnz	00117$
-                                    584 ;	screen.c:55: vals[idx] = 9;
-      00027D 77 09            [12]  585 	mov	@r1,#0x09
-      00027F 09               [12]  586 	inc	r1
-      000280 77 00            [12]  587 	mov	@r1,#0x00
-      000282 19               [12]  588 	dec	r1
-                                    589 ;	screen.c:56: idx++;
-      000283 0C               [12]  590 	inc	r4
-      000284 BC 00 1A         [24]  591 	cjne	r4,#0x00,00118$
-      000287 0D               [12]  592 	inc	r5
-      000288 80 17            [24]  593 	sjmp	00118$
-      00028A                        594 00117$:
-                                    595 ;	screen.c:58: vals[idx] -= minus_carry;
-      00028A 87 02            [24]  596 	mov	ar2,@r1
-      00028C 09               [12]  597 	inc	r1
-      00028D 87 03            [24]  598 	mov	ar3,@r1
-      00028F 19               [12]  599 	dec	r1
-      000290 EA               [12]  600 	mov	a,r2
-      000291 C3               [12]  601 	clr	c
-      000292 9E               [12]  602 	subb	a,r6
-      000293 FA               [12]  603 	mov	r2,a
-      000294 EB               [12]  604 	mov	a,r3
-      000295 9F               [12]  605 	subb	a,r7
-      000296 FB               [12]  606 	mov	r3,a
-      000297 A7 02            [24]  607 	mov	@r1,ar2
-      000299 09               [12]  608 	inc	r1
-      00029A A7 03            [24]  609 	mov	@r1,ar3
-      00029C 19               [12]  610 	dec	r1
-                                    611 ;	screen.c:59: minus_carry = 0;
-      00029D 7E 00            [12]  612 	mov	r6,#0x00
-      00029F 7F 00            [12]  613 	mov	r7,#0x00
-      0002A1                        614 00118$:
-                                    615 ;	screen.c:61: current_val--;
-      0002A1 15 24            [12]  616 	dec	_current_val
-      0002A3 74 FF            [12]  617 	mov	a,#0xff
-      0002A5 B5 24 02         [24]  618 	cjne	a,_current_val,00253$
-      0002A8 15 25            [12]  619 	dec	(_current_val + 1)
-      0002AA                        620 00253$:
-      0002AA 02 02 09         [24]  621 	ljmp	00120$
-      0002AD                        622 00124$:
-                                    623 ;	screen.c:64: SCREEN_FLAG = 0x00;
-      0002AD E4               [12]  624 	clr	a
-      0002AE F5 2E            [12]  625 	mov	_SCREEN_FLAG,a
-      0002B0 F5 2F            [12]  626 	mov	(_SCREEN_FLAG + 1),a
-                                    627 ;	screen.c:65: }
-      0002B2 22               [24]  628 	ret
+                                    354 ;	.\screen.c:22: if((SCREEN_FLAG & 0xF0) == 0xF0){
+      00015F 74 F0            [12]  355 	mov	a,#0xf0
+      000161 55 2E            [12]  356 	anl	a,_SCREEN_FLAG
+      000163 FE               [12]  357 	mov	r6,a
+      000164 7F 00            [12]  358 	mov	r7,#0x00
+      000166 BE F0 05         [24]  359 	cjne	r6,#0xf0,00231$
+      000169 BF 00 02         [24]  360 	cjne	r7,#0x00,00231$
+      00016C 80 03            [24]  361 	sjmp	00232$
+      00016E                        362 00231$:
+      00016E 02 02 1A         [24]  363 	ljmp	00112$
+      000171                        364 00232$:
+                                    365 ;	.\screen.c:23: int carry = 1;
+      000171 7E 01            [12]  366 	mov	r6,#0x01
+      000173 7F 00            [12]  367 	mov	r7,#0x00
+                                    368 ;	.\screen.c:25: while(carry == 1 && current_val < 9999){
+      000175 7C 00            [12]  369 	mov	r4,#0x00
+      000177 7D 00            [12]  370 	mov	r5,#0x00
+      000179                        371 00108$:
+      000179 BE 01 05         [24]  372 	cjne	r6,#0x01,00233$
+      00017C BF 00 02         [24]  373 	cjne	r7,#0x00,00233$
+      00017F 80 03            [24]  374 	sjmp	00234$
+      000181                        375 00233$:
+      000181 02 02 1A         [24]  376 	ljmp	00112$
+      000184                        377 00234$:
+      000184 C3               [12]  378 	clr	c
+      000185 E5 24            [12]  379 	mov	a,_current_val
+      000187 94 0F            [12]  380 	subb	a,#0x0f
+      000189 E5 25            [12]  381 	mov	a,(_current_val + 1)
+      00018B 64 80            [12]  382 	xrl	a,#0x80
+      00018D 94 A7            [12]  383 	subb	a,#0xa7
+      00018F 40 03            [24]  384 	jc	00235$
+      000191 02 02 1A         [24]  385 	ljmp	00112$
+      000194                        386 00235$:
+                                    387 ;	.\screen.c:26: if(idx > 4){
+      000194 C3               [12]  388 	clr	c
+      000195 74 04            [12]  389 	mov	a,#0x04
+      000197 9C               [12]  390 	subb	a,r4
+      000198 74 80            [12]  391 	mov	a,#(0x00 ^ 0x80)
+      00019A 8D F0            [24]  392 	mov	b,r5
+      00019C 63 F0 80         [24]  393 	xrl	b,#0x80
+      00019F 95 F0            [12]  394 	subb	a,b
+      0001A1 50 34            [24]  395 	jnc	00103$
+                                    396 ;	.\screen.c:27: for(int i = 0; i < 4; i++){
+      0001A3 E4               [12]  397 	clr	a
+      0001A4 F5 57            [12]  398 	mov	_display_poll_i_50000_11,a
+      0001A6 F5 58            [12]  399 	mov	(_display_poll_i_50000_11 + 1),a
+      0001A8                        400 00126$:
+      0001A8 C3               [12]  401 	clr	c
+      0001A9 E5 57            [12]  402 	mov	a,_display_poll_i_50000_11
+      0001AB 94 04            [12]  403 	subb	a,#0x04
+      0001AD E5 58            [12]  404 	mov	a,(_display_poll_i_50000_11 + 1)
+      0001AF 64 80            [12]  405 	xrl	a,#0x80
+      0001B1 94 80            [12]  406 	subb	a,#0x80
+      0001B3 50 1B            [24]  407 	jnc	00101$
+                                    408 ;	.\screen.c:28: vals[i] = 0;
+      0001B5 E5 57            [12]  409 	mov	a,_display_poll_i_50000_11
+      0001B7 25 57            [12]  410 	add	a,_display_poll_i_50000_11
+      0001B9 FA               [12]  411 	mov	r2,a
+      0001BA E5 58            [12]  412 	mov	a,(_display_poll_i_50000_11 + 1)
+      0001BC 33               [12]  413 	rlc	a
+      0001BD EA               [12]  414 	mov	a,r2
+      0001BE 24 1C            [12]  415 	add	a, #_vals
+      0001C0 F8               [12]  416 	mov	r0,a
+      0001C1 76 00            [12]  417 	mov	@r0,#0x00
+      0001C3 08               [12]  418 	inc	r0
+      0001C4 76 00            [12]  419 	mov	@r0,#0x00
+                                    420 ;	.\screen.c:27: for(int i = 0; i < 4; i++){
+      0001C6 05 57            [12]  421 	inc	_display_poll_i_50000_11
+      0001C8 E4               [12]  422 	clr	a
+      0001C9 B5 57 DC         [24]  423 	cjne	a,_display_poll_i_50000_11,00126$
+      0001CC 05 58            [12]  424 	inc	(_display_poll_i_50000_11 + 1)
+      0001CE 80 D8            [24]  425 	sjmp	00126$
+      0001D0                        426 00101$:
+                                    427 ;	.\screen.c:30: current_val = 0;
+      0001D0 E4               [12]  428 	clr	a
+      0001D1 F5 24            [12]  429 	mov	_current_val,a
+      0001D3 F5 25            [12]  430 	mov	(_current_val + 1),a
+                                    431 ;	.\screen.c:31: break;
+      0001D5 80 43            [24]  432 	sjmp	00112$
+      0001D7                        433 00103$:
+                                    434 ;	.\screen.c:33: if(vals[idx] == 9){
+      0001D7 EC               [12]  435 	mov	a,r4
+      0001D8 2C               [12]  436 	add	a,r4
+      0001D9 FA               [12]  437 	mov	r2,a
+      0001DA ED               [12]  438 	mov	a,r5
+      0001DB 33               [12]  439 	rlc	a
+      0001DC EA               [12]  440 	mov	a,r2
+      0001DD 24 1C            [12]  441 	add	a, #_vals
+      0001DF F9               [12]  442 	mov	r1,a
+      0001E0 87 02            [24]  443 	mov	ar2,@r1
+      0001E2 09               [12]  444 	inc	r1
+      0001E3 87 03            [24]  445 	mov	ar3,@r1
+      0001E5 19               [12]  446 	dec	r1
+      0001E6 BA 09 10         [24]  447 	cjne	r2,#0x09,00105$
+      0001E9 BB 00 0D         [24]  448 	cjne	r3,#0x00,00105$
+                                    449 ;	.\screen.c:34: vals[idx] = 0;
+      0001EC 77 00            [12]  450 	mov	@r1,#0x00
+      0001EE 09               [12]  451 	inc	r1
+      0001EF 77 00            [12]  452 	mov	@r1,#0x00
+      0001F1 19               [12]  453 	dec	r1
+                                    454 ;	.\screen.c:35: idx++;
+      0001F2 0C               [12]  455 	inc	r4
+      0001F3 BC 00 19         [24]  456 	cjne	r4,#0x00,00106$
+      0001F6 0D               [12]  457 	inc	r5
+      0001F7 80 16            [24]  458 	sjmp	00106$
+      0001F9                        459 00105$:
+                                    460 ;	.\screen.c:37: vals[idx] += carry;
+      0001F9 87 02            [24]  461 	mov	ar2,@r1
+      0001FB 09               [12]  462 	inc	r1
+      0001FC 87 03            [24]  463 	mov	ar3,@r1
+      0001FE 19               [12]  464 	dec	r1
+      0001FF EE               [12]  465 	mov	a,r6
+      000200 2A               [12]  466 	add	a, r2
+      000201 FA               [12]  467 	mov	r2,a
+      000202 EF               [12]  468 	mov	a,r7
+      000203 3B               [12]  469 	addc	a, r3
+      000204 FB               [12]  470 	mov	r3,a
+      000205 A7 02            [24]  471 	mov	@r1,ar2
+      000207 09               [12]  472 	inc	r1
+      000208 A7 03            [24]  473 	mov	@r1,ar3
+      00020A 19               [12]  474 	dec	r1
+                                    475 ;	.\screen.c:38: carry = 0;
+      00020B 7E 00            [12]  476 	mov	r6,#0x00
+      00020D 7F 00            [12]  477 	mov	r7,#0x00
+      00020F                        478 00106$:
+                                    479 ;	.\screen.c:40: current_val++;
+      00020F 05 24            [12]  480 	inc	_current_val
+      000211 E4               [12]  481 	clr	a
+      000212 B5 24 02         [24]  482 	cjne	a,_current_val,00242$
+      000215 05 25            [12]  483 	inc	(_current_val + 1)
+      000217                        484 00242$:
+      000217 02 01 79         [24]  485 	ljmp	00108$
+      00021A                        486 00112$:
+                                    487 ;	.\screen.c:43: if((SCREEN_FLAG & 0x0F) == 0x0F){
+      00021A 74 0F            [12]  488 	mov	a,#0x0f
+      00021C 55 2E            [12]  489 	anl	a,_SCREEN_FLAG
+      00021E FE               [12]  490 	mov	r6,a
+      00021F 7F 00            [12]  491 	mov	r7,#0x00
+      000221 BE 0F 05         [24]  492 	cjne	r6,#0x0f,00243$
+      000224 BF 00 02         [24]  493 	cjne	r7,#0x00,00243$
+      000227 80 03            [24]  494 	sjmp	00244$
+      000229                        495 00243$:
+      000229 02 02 D8         [24]  496 	ljmp	00124$
+      00022C                        497 00244$:
+                                    498 ;	.\screen.c:44: int minus_carry = 1;
+      00022C 7E 01            [12]  499 	mov	r6,#0x01
+      00022E 7F 00            [12]  500 	mov	r7,#0x00
+                                    501 ;	.\screen.c:46: while(minus_carry == 1 && current_val > 0){
+      000230 7C 00            [12]  502 	mov	r4,#0x00
+      000232 7D 00            [12]  503 	mov	r5,#0x00
+      000234                        504 00120$:
+      000234 BE 01 05         [24]  505 	cjne	r6,#0x01,00245$
+      000237 BF 00 02         [24]  506 	cjne	r7,#0x00,00245$
+      00023A 80 03            [24]  507 	sjmp	00246$
+      00023C                        508 00245$:
+      00023C 02 02 D8         [24]  509 	ljmp	00124$
+      00023F                        510 00246$:
+      00023F C3               [12]  511 	clr	c
+      000240 E4               [12]  512 	clr	a
+      000241 95 24            [12]  513 	subb	a,_current_val
+      000243 74 80            [12]  514 	mov	a,#(0x00 ^ 0x80)
+      000245 85 25 F0         [24]  515 	mov	b,(_current_val + 1)
+      000248 63 F0 80         [24]  516 	xrl	b,#0x80
+      00024B 95 F0            [12]  517 	subb	a,b
+      00024D 40 03            [24]  518 	jc	00247$
+      00024F 02 02 D8         [24]  519 	ljmp	00124$
+      000252                        520 00247$:
+                                    521 ;	.\screen.c:47: if(idx > 4){
+      000252 C3               [12]  522 	clr	c
+      000253 74 04            [12]  523 	mov	a,#0x04
+      000255 9C               [12]  524 	subb	a,r4
+      000256 74 80            [12]  525 	mov	a,#(0x00 ^ 0x80)
+      000258 8D F0            [24]  526 	mov	b,r5
+      00025A 63 F0 80         [24]  527 	xrl	b,#0x80
+      00025D 95 F0            [12]  528 	subb	a,b
+      00025F 50 34            [24]  529 	jnc	00115$
+                                    530 ;	.\screen.c:48: for(int i = 0; i < 4; i++){
+      000261 E4               [12]  531 	clr	a
+      000262 F5 59            [12]  532 	mov	_display_poll_i_50000_18,a
+      000264 F5 5A            [12]  533 	mov	(_display_poll_i_50000_18 + 1),a
+      000266                        534 00129$:
+      000266 C3               [12]  535 	clr	c
+      000267 E5 59            [12]  536 	mov	a,_display_poll_i_50000_18
+      000269 94 04            [12]  537 	subb	a,#0x04
+      00026B E5 5A            [12]  538 	mov	a,(_display_poll_i_50000_18 + 1)
+      00026D 64 80            [12]  539 	xrl	a,#0x80
+      00026F 94 80            [12]  540 	subb	a,#0x80
+      000271 50 1B            [24]  541 	jnc	00113$
+                                    542 ;	.\screen.c:49: vals[i] = 0;
+      000273 E5 59            [12]  543 	mov	a,_display_poll_i_50000_18
+      000275 25 59            [12]  544 	add	a,_display_poll_i_50000_18
+      000277 FA               [12]  545 	mov	r2,a
+      000278 E5 5A            [12]  546 	mov	a,(_display_poll_i_50000_18 + 1)
+      00027A 33               [12]  547 	rlc	a
+      00027B EA               [12]  548 	mov	a,r2
+      00027C 24 1C            [12]  549 	add	a, #_vals
+      00027E F8               [12]  550 	mov	r0,a
+      00027F 76 00            [12]  551 	mov	@r0,#0x00
+      000281 08               [12]  552 	inc	r0
+      000282 76 00            [12]  553 	mov	@r0,#0x00
+                                    554 ;	.\screen.c:48: for(int i = 0; i < 4; i++){
+      000284 05 59            [12]  555 	inc	_display_poll_i_50000_18
+      000286 E4               [12]  556 	clr	a
+      000287 B5 59 DC         [24]  557 	cjne	a,_display_poll_i_50000_18,00129$
+      00028A 05 5A            [12]  558 	inc	(_display_poll_i_50000_18 + 1)
+      00028C 80 D8            [24]  559 	sjmp	00129$
+      00028E                        560 00113$:
+                                    561 ;	.\screen.c:51: current_val = 0;
+      00028E E4               [12]  562 	clr	a
+      00028F F5 24            [12]  563 	mov	_current_val,a
+      000291 F5 25            [12]  564 	mov	(_current_val + 1),a
+                                    565 ;	.\screen.c:52: break;
+      000293 80 43            [24]  566 	sjmp	00124$
+      000295                        567 00115$:
+                                    568 ;	.\screen.c:54: if(vals[idx] == 0){
+      000295 EC               [12]  569 	mov	a,r4
+      000296 2C               [12]  570 	add	a,r4
+      000297 FA               [12]  571 	mov	r2,a
+      000298 ED               [12]  572 	mov	a,r5
+      000299 33               [12]  573 	rlc	a
+      00029A EA               [12]  574 	mov	a,r2
+      00029B 24 1C            [12]  575 	add	a, #_vals
+      00029D F9               [12]  576 	mov	r1,a
+      00029E 87 02            [24]  577 	mov	ar2,@r1
+      0002A0 09               [12]  578 	inc	r1
+      0002A1 87 03            [24]  579 	mov	ar3,@r1
+      0002A3 19               [12]  580 	dec	r1
+      0002A4 EA               [12]  581 	mov	a,r2
+      0002A5 4B               [12]  582 	orl	a,r3
+      0002A6 70 0D            [24]  583 	jnz	00117$
+                                    584 ;	.\screen.c:55: vals[idx] = 9;
+      0002A8 77 09            [12]  585 	mov	@r1,#0x09
+      0002AA 09               [12]  586 	inc	r1
+      0002AB 77 00            [12]  587 	mov	@r1,#0x00
+      0002AD 19               [12]  588 	dec	r1
+                                    589 ;	.\screen.c:56: idx++;
+      0002AE 0C               [12]  590 	inc	r4
+      0002AF BC 00 1A         [24]  591 	cjne	r4,#0x00,00118$
+      0002B2 0D               [12]  592 	inc	r5
+      0002B3 80 17            [24]  593 	sjmp	00118$
+      0002B5                        594 00117$:
+                                    595 ;	.\screen.c:58: vals[idx] -= minus_carry;
+      0002B5 87 02            [24]  596 	mov	ar2,@r1
+      0002B7 09               [12]  597 	inc	r1
+      0002B8 87 03            [24]  598 	mov	ar3,@r1
+      0002BA 19               [12]  599 	dec	r1
+      0002BB EA               [12]  600 	mov	a,r2
+      0002BC C3               [12]  601 	clr	c
+      0002BD 9E               [12]  602 	subb	a,r6
+      0002BE FA               [12]  603 	mov	r2,a
+      0002BF EB               [12]  604 	mov	a,r3
+      0002C0 9F               [12]  605 	subb	a,r7
+      0002C1 FB               [12]  606 	mov	r3,a
+      0002C2 A7 02            [24]  607 	mov	@r1,ar2
+      0002C4 09               [12]  608 	inc	r1
+      0002C5 A7 03            [24]  609 	mov	@r1,ar3
+      0002C7 19               [12]  610 	dec	r1
+                                    611 ;	.\screen.c:59: minus_carry = 0;
+      0002C8 7E 00            [12]  612 	mov	r6,#0x00
+      0002CA 7F 00            [12]  613 	mov	r7,#0x00
+      0002CC                        614 00118$:
+                                    615 ;	.\screen.c:61: current_val--;
+      0002CC 15 24            [12]  616 	dec	_current_val
+      0002CE 74 FF            [12]  617 	mov	a,#0xff
+      0002D0 B5 24 02         [24]  618 	cjne	a,_current_val,00253$
+      0002D3 15 25            [12]  619 	dec	(_current_val + 1)
+      0002D5                        620 00253$:
+      0002D5 02 02 34         [24]  621 	ljmp	00120$
+      0002D8                        622 00124$:
+                                    623 ;	.\screen.c:64: SCREEN_FLAG = 0x00;
+      0002D8 E4               [12]  624 	clr	a
+      0002D9 F5 2E            [12]  625 	mov	_SCREEN_FLAG,a
+      0002DB F5 2F            [12]  626 	mov	(_SCREEN_FLAG + 1),a
+                                    627 ;	.\screen.c:65: }
+      0002DD 22               [24]  628 	ret
                                     629 ;------------------------------------------------------------
                                     630 ;Allocation info for local variables in function 'display'
                                     631 ;------------------------------------------------------------
-                                    632 ;	screen.c:68: void display(void)
+                                    632 ;	.\screen.c:68: void display(void)
                                     633 ;	-----------------------------------------
                                     634 ;	 function display
                                     635 ;	-----------------------------------------
-      0002B3                        636 _display:
-                                    637 ;	screen.c:73: P0 = table[vals[0]];
-      0002B3 E5 1C            [12]  638 	mov	a,_vals
-      0002B5 25 1C            [12]  639 	add	a,_vals
-      0002B7 FE               [12]  640 	mov	r6,a
-      0002B8 E5 1D            [12]  641 	mov	a,(_vals + 1)
-      0002BA 33               [12]  642 	rlc	a
-      0002BB EE               [12]  643 	mov	a,r6
-      0002BC 24 08            [12]  644 	add	a, #_table
-      0002BE F9               [12]  645 	mov	r1,a
-      0002BF 87 80            [24]  646 	mov	_P0,@r1
-                                    647 ;	screen.c:74: P2_3 = 0;
+      0002DE                        636 _display:
+                                    637 ;	.\screen.c:73: P0 = table[vals[0]];
+      0002DE E5 1C            [12]  638 	mov	a,_vals
+      0002E0 25 1C            [12]  639 	add	a,_vals
+      0002E2 FE               [12]  640 	mov	r6,a
+      0002E3 E5 1D            [12]  641 	mov	a,(_vals + 1)
+      0002E5 33               [12]  642 	rlc	a
+      0002E6 EE               [12]  643 	mov	a,r6
+      0002E7 24 08            [12]  644 	add	a, #_table
+      0002E9 F9               [12]  645 	mov	r1,a
+      0002EA 87 80            [24]  646 	mov	_P0,@r1
+                                    647 ;	.\screen.c:74: P2_3 = 0;
                                     648 ;	assignBit
-      0002C1 C2 A3            [12]  649 	clr	_P2_3
-                                    650 ;	screen.c:75: delay(1);
-      0002C3 90 00 01         [24]  651 	mov	dptr,#0x0001
-      0002C6 12 04 0C         [24]  652 	lcall	_delay
-                                    653 ;	screen.c:76: P2_3 = 1;
+      0002EC C2 A3            [12]  649 	clr	_P2_3
+                                    650 ;	.\screen.c:75: delay(1);
+      0002EE 90 00 01         [24]  651 	mov	dptr,#0x0001
+      0002F1 12 04 37         [24]  652 	lcall	_delay
+                                    653 ;	.\screen.c:76: P2_3 = 1;
                                     654 ;	assignBit
-      0002C9 D2 A3            [12]  655 	setb	_P2_3
-                                    656 ;	screen.c:78: P0 = table[vals[1]];
-      0002CB E5 1E            [12]  657 	mov	a,(_vals + 0x0002)
-      0002CD 25 E0            [12]  658 	add	a,acc
-      0002CF FE               [12]  659 	mov	r6,a
-      0002D0 E5 1F            [12]  660 	mov	a,((_vals + 0x0002) + 1)
-      0002D2 33               [12]  661 	rlc	a
-      0002D3 EE               [12]  662 	mov	a,r6
-      0002D4 24 08            [12]  663 	add	a, #_table
-      0002D6 F9               [12]  664 	mov	r1,a
-      0002D7 87 80            [24]  665 	mov	_P0,@r1
-                                    666 ;	screen.c:79: P2_2 = 0;
+      0002F4 D2 A3            [12]  655 	setb	_P2_3
+                                    656 ;	.\screen.c:78: P0 = table[vals[1]];
+      0002F6 E5 1E            [12]  657 	mov	a,(_vals + 0x0002)
+      0002F8 25 E0            [12]  658 	add	a,acc
+      0002FA FE               [12]  659 	mov	r6,a
+      0002FB E5 1F            [12]  660 	mov	a,((_vals + 0x0002) + 1)
+      0002FD 33               [12]  661 	rlc	a
+      0002FE EE               [12]  662 	mov	a,r6
+      0002FF 24 08            [12]  663 	add	a, #_table
+      000301 F9               [12]  664 	mov	r1,a
+      000302 87 80            [24]  665 	mov	_P0,@r1
+                                    666 ;	.\screen.c:79: P2_2 = 0;
                                     667 ;	assignBit
-      0002D9 C2 A2            [12]  668 	clr	_P2_2
-                                    669 ;	screen.c:80: delay(1);
-      0002DB 90 00 01         [24]  670 	mov	dptr,#0x0001
-      0002DE 12 04 0C         [24]  671 	lcall	_delay
-                                    672 ;	screen.c:81: P2_2 = 1;
+      000304 C2 A2            [12]  668 	clr	_P2_2
+                                    669 ;	.\screen.c:80: delay(1);
+      000306 90 00 01         [24]  670 	mov	dptr,#0x0001
+      000309 12 04 37         [24]  671 	lcall	_delay
+                                    672 ;	.\screen.c:81: P2_2 = 1;
                                     673 ;	assignBit
-      0002E1 D2 A2            [12]  674 	setb	_P2_2
-                                    675 ;	screen.c:83: P0 = table[vals[2]];
-      0002E3 E5 20            [12]  676 	mov	a,(_vals + 0x0004)
-      0002E5 25 E0            [12]  677 	add	a,acc
-      0002E7 FE               [12]  678 	mov	r6,a
-      0002E8 E5 21            [12]  679 	mov	a,((_vals + 0x0004) + 1)
-      0002EA 33               [12]  680 	rlc	a
-      0002EB EE               [12]  681 	mov	a,r6
-      0002EC 24 08            [12]  682 	add	a, #_table
-      0002EE F9               [12]  683 	mov	r1,a
-      0002EF 87 80            [24]  684 	mov	_P0,@r1
-                                    685 ;	screen.c:84: P2_1 = 0;
+      00030C D2 A2            [12]  674 	setb	_P2_2
+                                    675 ;	.\screen.c:83: P0 = table[vals[2]];
+      00030E E5 20            [12]  676 	mov	a,(_vals + 0x0004)
+      000310 25 E0            [12]  677 	add	a,acc
+      000312 FE               [12]  678 	mov	r6,a
+      000313 E5 21            [12]  679 	mov	a,((_vals + 0x0004) + 1)
+      000315 33               [12]  680 	rlc	a
+      000316 EE               [12]  681 	mov	a,r6
+      000317 24 08            [12]  682 	add	a, #_table
+      000319 F9               [12]  683 	mov	r1,a
+      00031A 87 80            [24]  684 	mov	_P0,@r1
+                                    685 ;	.\screen.c:84: P2_1 = 0;
                                     686 ;	assignBit
-      0002F1 C2 A1            [12]  687 	clr	_P2_1
-                                    688 ;	screen.c:85: delay(1);
-      0002F3 90 00 01         [24]  689 	mov	dptr,#0x0001
-      0002F6 12 04 0C         [24]  690 	lcall	_delay
-                                    691 ;	screen.c:86: P2_1 = 1;
+      00031C C2 A1            [12]  687 	clr	_P2_1
+                                    688 ;	.\screen.c:85: delay(1);
+      00031E 90 00 01         [24]  689 	mov	dptr,#0x0001
+      000321 12 04 37         [24]  690 	lcall	_delay
+                                    691 ;	.\screen.c:86: P2_1 = 1;
                                     692 ;	assignBit
-      0002F9 D2 A1            [12]  693 	setb	_P2_1
-                                    694 ;	screen.c:88: P0 = table[vals[3]];
-      0002FB E5 22            [12]  695 	mov	a,(_vals + 0x0006)
-      0002FD 25 E0            [12]  696 	add	a,acc
-      0002FF FE               [12]  697 	mov	r6,a
-      000300 E5 23            [12]  698 	mov	a,((_vals + 0x0006) + 1)
-      000302 33               [12]  699 	rlc	a
-      000303 EE               [12]  700 	mov	a,r6
-      000304 24 08            [12]  701 	add	a, #_table
-      000306 F9               [12]  702 	mov	r1,a
-      000307 87 80            [24]  703 	mov	_P0,@r1
-                                    704 ;	screen.c:89: P2_0 = 0;
+      000324 D2 A1            [12]  693 	setb	_P2_1
+                                    694 ;	.\screen.c:88: P0 = table[vals[3]];
+      000326 E5 22            [12]  695 	mov	a,(_vals + 0x0006)
+      000328 25 E0            [12]  696 	add	a,acc
+      00032A FE               [12]  697 	mov	r6,a
+      00032B E5 23            [12]  698 	mov	a,((_vals + 0x0006) + 1)
+      00032D 33               [12]  699 	rlc	a
+      00032E EE               [12]  700 	mov	a,r6
+      00032F 24 08            [12]  701 	add	a, #_table
+      000331 F9               [12]  702 	mov	r1,a
+      000332 87 80            [24]  703 	mov	_P0,@r1
+                                    704 ;	.\screen.c:89: P2_0 = 0;
                                     705 ;	assignBit
-      000309 C2 A0            [12]  706 	clr	_P2_0
-                                    707 ;	screen.c:90: delay(1);
-      00030B 90 00 01         [24]  708 	mov	dptr,#0x0001
-      00030E 12 04 0C         [24]  709 	lcall	_delay
-                                    710 ;	screen.c:91: P2_0 = 1;
+      000334 C2 A0            [12]  706 	clr	_P2_0
+                                    707 ;	.\screen.c:90: delay(1);
+      000336 90 00 01         [24]  708 	mov	dptr,#0x0001
+      000339 12 04 37         [24]  709 	lcall	_delay
+                                    710 ;	.\screen.c:91: P2_0 = 1;
                                     711 ;	assignBit
-      000311 D2 A0            [12]  712 	setb	_P2_0
-                                    713 ;	screen.c:92: }
-      000313 22               [24]  714 	ret
+      00033C D2 A0            [12]  712 	setb	_P2_0
+                                    713 ;	.\screen.c:92: }
+      00033E 22               [24]  714 	ret
                                     715 	.area CSEG    (CODE)
                                     716 	.area CONST   (CODE)
                                     717 	.area XINIT   (CODE)

@@ -680,13 +680,13 @@ _send_str:
 _write:
 	mov	r6, dpl
 	mov	r7, dph
-;	.\lcd.c:117: for(int i = 0; i < 8; i++){
+;	.\lcd.c:111: for(int i = 0; i < 8; i++){
 	mov	r5,#0x00
 00103$:
 	cjne	r5,#0x08,00120$
 00120$:
 	jnc	00101$
-;	.\lcd.c:118: P2_6 = (dt & (0x80 >> i)) ? 1 : 0;
+;	.\lcd.c:112: P2_6 = (dt & (0x80 >> i)) ? 1 : 0;
 	mov	b,r5
 	inc	b
 	mov	r3,#0x80
@@ -714,40 +714,40 @@ _write:
 	orl	a,r4
 	add	a,#0xff
 	mov	_P2_6,c
-;	.\lcd.c:119: P2_7 = 1;
+;	.\lcd.c:113: P2_7 = 1;
 ;	assignBit
 	setb	_P2_7
-;	.\lcd.c:120: P2_7 = 0;
+;	.\lcd.c:114: P2_7 = 0;
 ;	assignBit
 	clr	_P2_7
-;	.\lcd.c:117: for(int i = 0; i < 8; i++){
+;	.\lcd.c:111: for(int i = 0; i < 8; i++){
 	inc	r5
 	sjmp	00103$
 00101$:
-;	.\lcd.c:122: delay(1);
+;	.\lcd.c:116: delay(1);
 	mov	dptr,#0x0001
-;	.\lcd.c:123: }
+;	.\lcd.c:117: }
 	ljmp	_delay
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'ack'
 ;------------------------------------------------------------
-;	.\lcd.c:125: void ack(void){
+;	.\lcd.c:119: void ack(void){
 ;	-----------------------------------------
 ;	 function ack
 ;	-----------------------------------------
 _ack:
-;	.\lcd.c:126: P2_6 = 1;
+;	.\lcd.c:120: P2_6 = 1;
 ;	assignBit
 	setb	_P2_6
-;	.\lcd.c:127: P2_7 = 1;
+;	.\lcd.c:121: P2_7 = 1;
 ;	assignBit
 	setb	_P2_7
-;	.\lcd.c:128: P2_7 = 0;
+;	.\lcd.c:122: P2_7 = 0;
 ;	assignBit
 	clr	_P2_7
-;	.\lcd.c:129: delay(1);
+;	.\lcd.c:123: delay(1);
 	mov	dptr,#0x0001
-;	.\lcd.c:130: }
+;	.\lcd.c:124: }
 	ljmp	_delay
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

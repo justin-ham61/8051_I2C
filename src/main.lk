@@ -13,12 +13,11 @@
 -l liblong
 -l libfloat
 main.rel
-screen.rel
-button.rel
+screen/screen.rel
+button/button.rel
 global.rel
-blink.rel
-led.rel
-I2C.rel
-lcd.rel
+blink/blink.rel
+I2C/I2C.rel
+lcd/lcd.rel
 
 -e

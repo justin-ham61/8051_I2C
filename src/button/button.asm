@@ -293,7 +293,7 @@ _S4_COUNT:
 ;button_press              Allocated to registers r6 r7 
 ;pressed                   Allocated to registers 
 ;------------------------------------------------------------
-;	button.c:14: void button_poll(void){
+;	.\button.c:14: void button_poll(void){
 ;	-----------------------------------------
 ;	 function button_poll
 ;	-----------------------------------------
@@ -306,19 +306,19 @@ _button_poll:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	button.c:15: int button_press = 0x00;
+;	.\button.c:15: int button_press = 0x00;
 	mov	r6,#0x00
 	mov	r7,#0x00
-;	button.c:18: if(P3_5 == 0){
+;	.\button.c:18: if(P3_5 == 0){
 	jb	_P3_5,00104$
-;	button.c:19: S1_COUNT++;
+;	.\button.c:19: S1_COUNT++;
 	inc	_S1_COUNT
 	clr	a
 	cjne	a,_S1_COUNT,00105$
 	inc	(_S1_COUNT + 1)
 	sjmp	00105$
 00104$:
-;	button.c:20: } else if (S1_COUNT > 4){
+;	.\button.c:20: } else if (S1_COUNT > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,_S1_COUNT
@@ -327,24 +327,24 @@ _button_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00105$
-;	button.c:21: button_press |= 0x08;
+;	.\button.c:21: button_press |= 0x08;
 	mov	r6,#0x08
-;	button.c:22: S1_COUNT = 0;
+;	.\button.c:22: S1_COUNT = 0;
 	clr	a
 	mov	r7,a
 	mov	_S1_COUNT,a
 	mov	(_S1_COUNT + 1),a
 00105$:
-;	button.c:26: if(P3_4 == 0){
+;	.\button.c:26: if(P3_4 == 0){
 	jb	_P3_4,00109$
-;	button.c:27: S2_COUNT++;
+;	.\button.c:27: S2_COUNT++;
 	inc	_S2_COUNT
 	clr	a
 	cjne	a,_S2_COUNT,00110$
 	inc	(_S2_COUNT + 1)
 	sjmp	00110$
 00109$:
-;	button.c:28: } else if (S2_COUNT > 4){
+;	.\button.c:28: } else if (S2_COUNT > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,_S2_COUNT
@@ -353,23 +353,23 @@ _button_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00110$
-;	button.c:29: button_press |= 0x04;
+;	.\button.c:29: button_press |= 0x04;
 	orl	ar6,#0x04
-;	button.c:30: S2_COUNT = 0;
+;	.\button.c:30: S2_COUNT = 0;
 	clr	a
 	mov	_S2_COUNT,a
 	mov	(_S2_COUNT + 1),a
 00110$:
-;	button.c:35: if(P3_3 == 0){
+;	.\button.c:35: if(P3_3 == 0){
 	jb	_P3_3,00114$
-;	button.c:36: S3_COUNT++;
+;	.\button.c:36: S3_COUNT++;
 	inc	_S3_COUNT
 	clr	a
 	cjne	a,_S3_COUNT,00115$
 	inc	(_S3_COUNT + 1)
 	sjmp	00115$
 00114$:
-;	button.c:37: } else if (S3_COUNT > 4){
+;	.\button.c:37: } else if (S3_COUNT > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,_S3_COUNT
@@ -378,23 +378,23 @@ _button_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00115$
-;	button.c:38: button_press |= 0x02;
+;	.\button.c:38: button_press |= 0x02;
 	orl	ar6,#0x02
-;	button.c:39: S3_COUNT = 0;
+;	.\button.c:39: S3_COUNT = 0;
 	clr	a
 	mov	_S3_COUNT,a
 	mov	(_S3_COUNT + 1),a
 00115$:
-;	button.c:44: if(P3_2 == 0){
+;	.\button.c:44: if(P3_2 == 0){
 	jb	_P3_2,00119$
-;	button.c:45: S4_COUNT++;
+;	.\button.c:45: S4_COUNT++;
 	inc	_S4_COUNT
 	clr	a
 	cjne	a,_S4_COUNT,00120$
 	inc	(_S4_COUNT + 1)
 	sjmp	00120$
 00119$:
-;	button.c:46: } else if (S4_COUNT > 4){
+;	.\button.c:46: } else if (S4_COUNT > 4){
 	clr	c
 	mov	a,#0x04
 	subb	a,_S4_COUNT
@@ -403,38 +403,38 @@ _button_poll:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00120$
-;	button.c:47: button_press |= 0x01;
+;	.\button.c:47: button_press |= 0x01;
 	orl	ar6,#0x01
-;	button.c:48: S4_COUNT = 0;
+;	.\button.c:48: S4_COUNT = 0;
 	clr	a
 	mov	_S4_COUNT,a
 	mov	(_S4_COUNT + 1),a
 00120$:
-;	button.c:50: button_handle(button_press);
+;	.\button.c:50: button_handle(button_press);
 	mov	dpl, r6
 	mov	dph, r7
-;	button.c:51: }
+;	.\button.c:51: }
 	ljmp	_button_handle
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'button_handle'
 ;------------------------------------------------------------
 ;button_press              Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	button.c:54: void button_handle(int button_press){
+;	.\button.c:54: void button_handle(int button_press){
 ;	-----------------------------------------
 ;	 function button_handle
 ;	-----------------------------------------
 _button_handle:
 	mov	r6, dpl
 	mov	r7, dph
-;	button.c:61: if(button_press & 1){
+;	.\button.c:61: if(button_press & 1){
 	mov	a,r6
 	jnb	acc.0,00102$
-;	button.c:62: SCREEN_FLAG = 0x0F;
+;	.\button.c:62: SCREEN_FLAG = 0x0F;
 	mov	_SCREEN_FLAG,#0x0f
 	mov	(_SCREEN_FLAG + 1),#0x00
 00102$:
-;	button.c:66: button_press >>= 1;
+;	.\button.c:66: button_press >>= 1;
 	mov	a,r7
 	mov	c,acc.7
 	rrc	a
@@ -442,30 +442,30 @@ _button_handle:
 	rrc	a
 	xch	a,r6
 	mov	r7,a
-;	button.c:68: if(button_press & 1){
+;	.\button.c:68: if(button_press & 1){
 	mov	a,r6
 	jnb	acc.0,00104$
-;	button.c:69: SCREEN_FLAG = 0xF0;
+;	.\button.c:69: SCREEN_FLAG = 0xF0;
 	mov	_SCREEN_FLAG,#0xf0
 	mov	(_SCREEN_FLAG + 1),#0x00
 00104$:
-;	button.c:73: button_press >>= 1; 
+;	.\button.c:73: button_press >>= 1; 
 	mov	a,r7
 	mov	c,acc.7
 	rrc	a
 	xch	a,r6
 	rrc	a
 	xch	a,r6
-;	button.c:79: button_press >>= 1; 
+;	.\button.c:79: button_press >>= 1; 
 	mov	c,acc.7
 	rrc	a
 	xch	a,r6
 	rrc	a
 	xch	a,r6
-;	button.c:81: if(button_press & 1){
+;	.\button.c:81: if(button_press & 1){
 	mov	a,r6
 	jnb	acc.0,00107$
-;	button.c:83: BLINK_MODE = (BLINK_MODE + 1) % 3;
+;	.\button.c:83: BLINK_MODE = (BLINK_MODE + 1) % 3;
 	mov	dpl,_BLINK_MODE
 	mov	dph,(_BLINK_MODE + 1)
 	inc	dptr
@@ -475,7 +475,7 @@ _button_handle:
 	mov	_BLINK_MODE,dpl
 	mov	(_BLINK_MODE + 1),dph
 00107$:
-;	button.c:87: }
+;	.\button.c:87: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

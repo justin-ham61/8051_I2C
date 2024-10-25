@@ -113,6 +113,8 @@
 	.globl _SP
 	.globl _P0
 	.globl _init_debounce_timer
+	.globl _init_blink_timer
+	.globl _blink_timer
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -313,7 +315,7 @@ __sdcc_program_startup:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;	main.c:13: void main(void){
+;	main.c:14: void main(void){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
@@ -326,11 +328,15 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	main.c:14: init_display();
+;	main.c:15: TMOD = 0x01;
+	mov	_TMOD,#0x01
+;	main.c:16: init_display();
 	lcall	_init_display
-;	main.c:15: init_debounce_timer();
+;	main.c:17: init_debounce_timer();
 	lcall	_init_debounce_timer
-;	main.c:18: display_2("Hello World", "Bob is Great!", 0,3);
+;	main.c:18: init_blink_timer();
+	lcall	_init_blink_timer
+;	main.c:21: display_2("Hello World", "Bob is Great!", 0,3);
 	mov	_display_2_PARM_2,#___str_1
 	mov	(_display_2_PARM_2 + 1),#(___str_1 >> 8)
 	mov	(_display_2_PARM_2 + 2),#0x80
@@ -342,38 +348,87 @@ _main:
 	mov	dptr,#___str_0
 	mov	b, #0x80
 	lcall	_display_2
-;	main.c:20: while(1){
+;	main.c:23: while(1){
 00102$:
-;	main.c:21: display_poll();
+;	main.c:24: display_poll();
 	lcall	_display_poll
-;	main.c:22: button_poll();
+;	main.c:25: button_poll();
 	lcall	_button_poll
-;	main.c:23: display();
+;	main.c:26: display();
 	lcall	_display
-;	main.c:24: blink();
+;	main.c:27: blink();
 	lcall	_blink
-;	main.c:25: I2C_poll();
+;	main.c:28: I2C_poll();
 	lcall	_I2C_poll
-;	main.c:27: }
+;	main.c:29: blink_timer();
+	lcall	_blink_timer
+;	main.c:31: }
 	sjmp	00102$
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'init_debounce_timer'
 ;------------------------------------------------------------
-;	main.c:29: void init_debounce_timer(void){
+;	main.c:33: void init_debounce_timer(void){
 ;	-----------------------------------------
 ;	 function init_debounce_timer
 ;	-----------------------------------------
 _init_debounce_timer:
-;	main.c:30: TMOD = 0x01;
-	mov	_TMOD,#0x01
-;	main.c:31: TH0 = 0x00;
+;	main.c:34: TH0 = 0x00;
 	mov	_TH0,#0x00
-;	main.c:32: TL0 = 0x00;
+;	main.c:35: TL0 = 0x00;
 	mov	_TL0,#0x00
-;	main.c:33: TR0 = 1;
+;	main.c:36: TR0 = 1;
 ;	assignBit
 	setb	_TR0
-;	main.c:34: }
+;	main.c:37: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'init_blink_timer'
+;------------------------------------------------------------
+;	main.c:39: void init_blink_timer(void){
+;	-----------------------------------------
+;	 function init_blink_timer
+;	-----------------------------------------
+_init_blink_timer:
+;	main.c:40: TH1 = 0x00;
+	mov	_TH1,#0x00
+;	main.c:41: TL1 = 0x00;
+	mov	_TL1,#0x00
+;	main.c:42: TR1 = 1;
+;	assignBit
+	setb	_TR1
+;	main.c:43: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'blink_timer'
+;------------------------------------------------------------
+;	main.c:45: void blink_timer(void){
+;	-----------------------------------------
+;	 function blink_timer
+;	-----------------------------------------
+_blink_timer:
+;	main.c:46: if(TF1 == 1){
+	jnb	_TF1,00103$
+;	main.c:47: TR1 = 0;
+;	assignBit
+	clr	_TR1
+;	main.c:48: BLINK_COUNTER++;
+	inc	_BLINK_COUNTER
+	clr	a
+	cjne	a,_BLINK_COUNTER,00112$
+	inc	(_BLINK_COUNTER + 1)
+00112$:
+;	main.c:49: TH1 = 0;
+	mov	_TH1,#0x00
+;	main.c:50: TL1 = 0;
+	mov	_TL1,#0x00
+;	main.c:51: TF1 = 0;
+;	assignBit
+	clr	_TF1
+;	main.c:52: TR1 = 1;
+;	assignBit
+	setb	_TR1
+00103$:
+;	main.c:54: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

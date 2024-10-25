@@ -104,6 +104,7 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _BLINK_COUNTER
 	.globl _BLINK_MODE
 	.globl _SCREEN_FLAG
 	.globl _reset_timer
@@ -227,6 +228,8 @@ _SCREEN_FLAG::
 	.ds 2
 _BLINK_MODE::
 	.ds 2
+_BLINK_COUNTER::
+	.ds 2
 ;--------------------------------------------------------
 ; overlayable items in internal ram
 ;--------------------------------------------------------
@@ -284,6 +287,9 @@ _BLINK_MODE::
 ;	global.c:5: int BLINK_MODE = 0;
 	mov	_BLINK_MODE,a
 	mov	(_BLINK_MODE + 1),a
+;	global.c:6: int BLINK_COUNTER = 0;
+	mov	_BLINK_COUNTER,a
+	mov	(_BLINK_COUNTER + 1),a
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
@@ -296,7 +302,7 @@ _BLINK_MODE::
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'reset_timer'
 ;------------------------------------------------------------
-;	global.c:7: void reset_timer(void){
+;	global.c:8: void reset_timer(void){
 ;	-----------------------------------------
 ;	 function reset_timer
 ;	-----------------------------------------
@@ -309,20 +315,20 @@ _reset_timer:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	global.c:8: TR0 = 0;
+;	global.c:9: TR0 = 0;
 ;	assignBit
 	clr	_TR0
-;	global.c:9: TH0 = 0x00;
+;	global.c:10: TH0 = 0x00;
 	mov	_TH0,#0x00
-;	global.c:10: TL0 = 0x00;
+;	global.c:11: TL0 = 0x00;
 	mov	_TL0,#0x00
-;	global.c:11: TF0 = 0;
+;	global.c:12: TF0 = 0;
 ;	assignBit
 	clr	_TF0
-;	global.c:12: TR0 = 1;
+;	global.c:13: TR0 = 1;
 ;	assignBit
 	setb	_TR0
-;	global.c:13: }
+;	global.c:14: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'delay'
@@ -331,14 +337,14 @@ _reset_timer:
 ;j                         Allocated to registers r6 r7 
 ;k                         Allocated to registers r4 r5 
 ;------------------------------------------------------------
-;	global.c:15: void delay(int i){
+;	global.c:16: void delay(int i){
 ;	-----------------------------------------
 ;	 function delay
 ;	-----------------------------------------
 _delay:
 	mov	r6, dpl
 	mov	r7, dph
-;	global.c:17: for (j = i; j > 0; j--)
+;	global.c:18: for (j = i; j > 0; j--)
 00106$:
 	clr	c
 	clr	a
@@ -348,7 +354,7 @@ _delay:
 	xrl	b,#0x80
 	subb	a,b
 	jnc	00108$
-;	global.c:18: for (k = 125; k > 0; k--);
+;	global.c:19: for (k = 125; k > 0; k--);
 	mov	r4,#0x7d
 	mov	r5,#0x00
 00104$:
@@ -364,14 +370,14 @@ _delay:
 	xrl	b,#0x80
 	subb	a,b
 	jc	00104$
-;	global.c:17: for (j = i; j > 0; j--)
+;	global.c:18: for (j = i; j > 0; j--)
 	dec	r6
 	cjne	r6,#0xff,00139$
 	dec	r7
 00139$:
 	sjmp	00106$
 00108$:
-;	global.c:19: }
+;	global.c:20: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

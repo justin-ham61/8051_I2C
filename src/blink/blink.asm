@@ -283,20 +283,20 @@ _dual_direction:
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
-;	blink.c:10: static int cyclone = 1;
+;	.\blink.c:10: static int cyclone = 1;
 	mov	_cyclone,#0x01
 	mov	(_cyclone + 1),#0x00
-;	blink.c:11: static int direction = 0;
+;	.\blink.c:11: static int direction = 0;
 	clr	a
 	mov	_direction,a
 	mov	(_direction + 1),a
-;	blink.c:14: static int dual_cyclone = 1;
+;	.\blink.c:14: static int dual_cyclone = 1;
 	mov	_dual_cyclone,#0x01
 	mov	(_dual_cyclone + 1),a
-;	blink.c:15: static int reverse_cyclone = 0b10000000;
+;	.\blink.c:15: static int reverse_cyclone = 0b10000000;
 	mov	_reverse_cyclone,#0x80
 	mov	(_reverse_cyclone + 1),a
-;	blink.c:16: static int dual_direction = 0;
+;	.\blink.c:16: static int dual_direction = 0;
 	mov	_dual_direction,a
 	mov	(_dual_direction + 1),a
 ;--------------------------------------------------------
@@ -313,7 +313,7 @@ _dual_direction:
 ;------------------------------------------------------------
 ;mode                      Allocated to registers r6 r7 
 ;------------------------------------------------------------
-;	blink.c:18: void blink(void){
+;	.\blink.c:18: void blink(void){
 ;	-----------------------------------------
 ;	 function blink
 ;	-----------------------------------------
@@ -326,47 +326,41 @@ _blink:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	blink.c:19: if(counter < 50){
+;	.\blink.c:19: if(BLINK_COUNTER < 50){
 	clr	c
-	mov	a,_counter
+	mov	a,_BLINK_COUNTER
 	subb	a,#0x32
-	mov	a,(_counter + 1)
+	mov	a,(_BLINK_COUNTER + 1)
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00102$
-;	blink.c:20: counter++;
-	inc	_counter
-	clr	a
-	cjne	a,_counter,00215$
-	inc	(_counter + 1)
-00215$:
-;	blink.c:21: return;
+;	.\blink.c:20: return;
 	ret
 00102$:
-;	blink.c:23: int mode = BLINK_MODE;
+;	.\blink.c:22: int mode = BLINK_MODE;
 	mov	r6,_BLINK_MODE
 	mov	r7,(_BLINK_MODE + 1)
-;	blink.c:24: switch(mode){
-	cjne	r6,#0x00,00216$
-	cjne	r7,#0x00,00216$
+;	.\blink.c:23: switch(mode){
+	cjne	r6,#0x00,00215$
+	cjne	r7,#0x00,00215$
 	sjmp	00103$
-00216$:
-	cjne	r6,#0x01,00217$
-	cjne	r7,#0x00,00217$
+00215$:
+	cjne	r6,#0x01,00216$
+	cjne	r7,#0x00,00216$
 	sjmp	00104$
-00217$:
-	cjne	r6,#0x02,00218$
-	cjne	r7,#0x00,00218$
+00216$:
+	cjne	r6,#0x02,00217$
+	cjne	r7,#0x00,00217$
 	ljmp	00115$
-00218$:
+00217$:
 	ljmp	00126$
-;	blink.c:25: case 0:
+;	.\blink.c:24: case 0:
 00103$:
-;	blink.c:26: P1 = ~(binary_num);
+;	.\blink.c:25: P1 = ~(binary_num);
 	mov	a,_binary_num
 	cpl	a
 	mov	_P1,a
-;	blink.c:27: binary_num = (binary_num + 1) % 256;
+;	.\blink.c:26: binary_num = (binary_num + 1) % 256;
 	mov	dpl,_binary_num
 	mov	dph,(_binary_num + 1)
 	inc	dptr
@@ -375,62 +369,62 @@ _blink:
 	lcall	__modsint
 	mov	_binary_num,dpl
 	mov	(_binary_num + 1),dph
-;	blink.c:28: counter = 0;
+;	.\blink.c:27: counter = 0;
 	clr	a
 	mov	_counter,a
 	mov	(_counter + 1),a
-;	blink.c:29: break;
-	ret
-;	blink.c:30: case 1:
+;	.\blink.c:28: break;
+	ljmp	00127$
+;	.\blink.c:29: case 1:
 00104$:
-;	blink.c:31: P1 = ~(cyclone);
+;	.\blink.c:30: P1 = ~(cyclone);
 	mov	a,_cyclone
 	cpl	a
 	mov	_P1,a
-;	blink.c:32: if(cyclone == 0b10000000 && direction == 0){
+;	.\blink.c:31: if(cyclone == 0b10000000 && direction == 0){
 	mov	a,#0x80
-	cjne	a,_cyclone,00219$
+	cjne	a,_cyclone,00218$
 	clr	a
-	cjne	a,(_cyclone + 1),00219$
-	sjmp	00220$
-00219$:
+	cjne	a,(_cyclone + 1),00218$
+	sjmp	00219$
+00218$:
 	sjmp	00109$
-00220$:
+00219$:
 	mov	a,_direction
 	orl	a,(_direction + 1)
-;	blink.c:33: direction = 1;
+;	.\blink.c:32: direction = 1;
 	jnz	00109$
 	mov	_direction,#0x01
 	mov	(_direction + 1),a
 	sjmp	00110$
 00109$:
-;	blink.c:34: } else if (cyclone == 1 && direction == 1){
+;	.\blink.c:33: } else if (cyclone == 1 && direction == 1){
 	mov	a,#0x01
-	cjne	a,_cyclone,00222$
+	cjne	a,_cyclone,00221$
 	dec	a
-	cjne	a,(_cyclone + 1),00222$
-	sjmp	00223$
+	cjne	a,(_cyclone + 1),00221$
+	sjmp	00222$
+00221$:
+	sjmp	00110$
 00222$:
-	sjmp	00110$
-00223$:
 	mov	a,#0x01
-	cjne	a,_direction,00224$
+	cjne	a,_direction,00223$
 	dec	a
-	cjne	a,(_direction + 1),00224$
-	sjmp	00225$
-00224$:
+	cjne	a,(_direction + 1),00223$
+	sjmp	00224$
+00223$:
 	sjmp	00110$
-00225$:
-;	blink.c:35: direction = 0;
+00224$:
+;	.\blink.c:34: direction = 0;
 	clr	a
 	mov	_direction,a
 	mov	(_direction + 1),a
 00110$:
-;	blink.c:38: if(direction == 0){
+;	.\blink.c:37: if(direction == 0){
 	mov	a,_direction
 	orl	a,(_direction + 1)
 	jnz	00113$
-;	blink.c:39: cyclone <<= 1;
+;	.\blink.c:38: cyclone <<= 1;
 	mov	a,_cyclone
 	add	a,_cyclone
 	mov	_cyclone,a
@@ -439,7 +433,7 @@ _blink:
 	mov	(_cyclone + 1),a
 	sjmp	00114$
 00113$:
-;	blink.c:41: cyclone >>= 1;
+;	.\blink.c:40: cyclone >>= 1;
 	mov	a,(_cyclone + 1)
 	mov	c,acc.7
 	rrc	a
@@ -448,72 +442,72 @@ _blink:
 	xch	a,_cyclone
 	mov	(_cyclone + 1),a
 00114$:
-;	blink.c:43: counter = 0;
+;	.\blink.c:42: counter = 0;
 	clr	a
 	mov	_counter,a
 	mov	(_counter + 1),a
-;	blink.c:44: break;
-	ret
-;	blink.c:45: case 2:
+;	.\blink.c:43: break;
+	ljmp	00127$
+;	.\blink.c:44: case 2:
 00115$:
-;	blink.c:46: P1 = ~(dual_cyclone | reverse_cyclone);
+;	.\blink.c:45: P1 = ~(dual_cyclone | reverse_cyclone);
 	mov	r7,_dual_cyclone
 	mov	a,_reverse_cyclone
 	orl	ar7,a
 	mov	a,r7
 	cpl	a
 	mov	_P1,a
-;	blink.c:47: if(reverse_cyclone == 1 && dual_direction == 0){
+;	.\blink.c:46: if(reverse_cyclone == 1 && dual_direction == 0){
 	mov	a,#0x01
-	cjne	a,_reverse_cyclone,00227$
+	cjne	a,_reverse_cyclone,00226$
 	dec	a
-	cjne	a,(_reverse_cyclone + 1),00227$
-	sjmp	00228$
-00227$:
+	cjne	a,(_reverse_cyclone + 1),00226$
+	sjmp	00227$
+00226$:
 	sjmp	00120$
-00228$:
+00227$:
 	mov	a,_dual_direction
 	orl	a,(_dual_direction + 1)
-;	blink.c:48: dual_direction = 1;
+;	.\blink.c:47: dual_direction = 1;
 	jnz	00120$
 	mov	_dual_direction,#0x01
 	mov	(_dual_direction + 1),a
 	sjmp	00121$
 00120$:
-;	blink.c:49: } else if (dual_cyclone == 1 && dual_direction == 1){
+;	.\blink.c:48: } else if (dual_cyclone == 1 && dual_direction == 1){
 	mov	a,#0x01
-	cjne	a,_dual_cyclone,00230$
+	cjne	a,_dual_cyclone,00229$
 	dec	a
-	cjne	a,(_dual_cyclone + 1),00230$
-	sjmp	00231$
+	cjne	a,(_dual_cyclone + 1),00229$
+	sjmp	00230$
+00229$:
+	sjmp	00121$
 00230$:
-	sjmp	00121$
-00231$:
 	mov	a,#0x01
-	cjne	a,_dual_direction,00232$
+	cjne	a,_dual_direction,00231$
 	dec	a
-	cjne	a,(_dual_direction + 1),00232$
-	sjmp	00233$
-00232$:
+	cjne	a,(_dual_direction + 1),00231$
+	sjmp	00232$
+00231$:
 	sjmp	00121$
-00233$:
-;	blink.c:50: dual_direction = 0;
+00232$:
+;	.\blink.c:49: dual_direction = 0;
 	clr	a
 	mov	_dual_direction,a
 	mov	(_dual_direction + 1),a
 00121$:
-;	blink.c:53: if(dual_direction == 0){
+;	.\blink.c:52: if(dual_direction == 0){
 	mov	a,_dual_direction
 	orl	a,(_dual_direction + 1)
 	jnz	00124$
-;	blink.c:54: dual_cyclone <<= 1;
+;	.\blink.c:53: dual_cyclone <<= 1;
 	mov	a,_dual_cyclone
 	add	a,_dual_cyclone
 	mov	_dual_cyclone,a
 	mov	a,(_dual_cyclone + 1)
 	rlc	a
 	mov	(_dual_cyclone + 1),a
-;	blink.c:55: reverse_cyclone >>= 1;
+;	.\blink.c:54: reverse_cyclone >>= 1;
 	mov	a,(_reverse_cyclone + 1)
 	mov	c,acc.7
 	rrc	a
@@ -523,7 +517,7 @@ _blink:
 	mov	(_reverse_cyclone + 1),a
 	sjmp	00125$
 00124$:
-;	blink.c:57: dual_cyclone >>= 1;
+;	.\blink.c:56: dual_cyclone >>= 1;
 	mov	a,(_dual_cyclone + 1)
 	mov	c,acc.7
 	rrc	a
@@ -531,7 +525,7 @@ _blink:
 	rrc	a
 	xch	a,_dual_cyclone
 	mov	(_dual_cyclone + 1),a
-;	blink.c:58: reverse_cyclone <<= 1;
+;	.\blink.c:57: reverse_cyclone <<= 1;
 	mov	a,_reverse_cyclone
 	add	a,_reverse_cyclone
 	mov	_reverse_cyclone,a
@@ -539,20 +533,25 @@ _blink:
 	rlc	a
 	mov	(_reverse_cyclone + 1),a
 00125$:
-;	blink.c:60: counter = 0;
+;	.\blink.c:59: counter = 0;
 	clr	a
 	mov	_counter,a
 	mov	(_counter + 1),a
-;	blink.c:61: break;
-;	blink.c:62: default:
-	ret
+;	.\blink.c:60: break;
+;	.\blink.c:61: default:
+	sjmp	00127$
 00126$:
-;	blink.c:63: counter = 0;
+;	.\blink.c:62: counter = 0;
 	clr	a
 	mov	_counter,a
 	mov	(_counter + 1),a
-;	blink.c:65: }
-;	blink.c:66: }
+;	.\blink.c:64: }
+00127$:
+;	.\blink.c:65: BLINK_COUNTER = 0;
+	clr	a
+	mov	_BLINK_COUNTER,a
+	mov	(_BLINK_COUNTER + 1),a
+;	.\blink.c:66: }
 	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

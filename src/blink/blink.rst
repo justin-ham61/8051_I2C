@@ -220,20 +220,20 @@
                                     220 ; internal ram data
                                     221 ;--------------------------------------------------------
                                     222 	.area DSEG    (DATA)
-      000032                        223 _binary_num:
-      000032                        224 	.ds 2
-      000034                        225 _cyclone:
-      000034                        226 	.ds 2
-      000036                        227 _direction:
-      000036                        228 	.ds 2
-      000038                        229 _counter:
-      000038                        230 	.ds 2
-      00003A                        231 _dual_cyclone:
-      00003A                        232 	.ds 2
-      00003C                        233 _reverse_cyclone:
-      00003C                        234 	.ds 2
-      00003E                        235 _dual_direction:
-      00003E                        236 	.ds 2
+      000034                        223 _binary_num:
+      000034                        224 	.ds 2
+      000036                        225 _cyclone:
+      000036                        226 	.ds 2
+      000038                        227 _direction:
+      000038                        228 	.ds 2
+      00003A                        229 _counter:
+      00003A                        230 	.ds 2
+      00003C                        231 _dual_cyclone:
+      00003C                        232 	.ds 2
+      00003E                        233 _reverse_cyclone:
+      00003E                        234 	.ds 2
+      000040                        235 _dual_direction:
+      000040                        236 	.ds 2
                                     237 ;--------------------------------------------------------
                                     238 ; overlayable items in internal ram
                                     239 ;--------------------------------------------------------
@@ -283,22 +283,22 @@
                                     283 	.area GSINIT  (CODE)
                                     284 	.area GSFINAL (CODE)
                                     285 	.area GSINIT  (CODE)
-                                    286 ;	blink.c:10: static int cyclone = 1;
-      0000B9 75 34 01         [24]  287 	mov	_cyclone,#0x01
-      0000BC 75 35 00         [24]  288 	mov	(_cyclone + 1),#0x00
-                                    289 ;	blink.c:11: static int direction = 0;
-      0000BF E4               [12]  290 	clr	a
-      0000C0 F5 36            [12]  291 	mov	_direction,a
-      0000C2 F5 37            [12]  292 	mov	(_direction + 1),a
-                                    293 ;	blink.c:14: static int dual_cyclone = 1;
-      0000C4 75 3A 01         [24]  294 	mov	_dual_cyclone,#0x01
-      0000C7 F5 3B            [12]  295 	mov	(_dual_cyclone + 1),a
-                                    296 ;	blink.c:15: static int reverse_cyclone = 0b10000000;
-      0000C9 75 3C 80         [24]  297 	mov	_reverse_cyclone,#0x80
-      0000CC F5 3D            [12]  298 	mov	(_reverse_cyclone + 1),a
-                                    299 ;	blink.c:16: static int dual_direction = 0;
-      0000CE F5 3E            [12]  300 	mov	_dual_direction,a
-      0000D0 F5 3F            [12]  301 	mov	(_dual_direction + 1),a
+                                    286 ;	.\blink.c:10: static int cyclone = 1;
+      0000BD 75 36 01         [24]  287 	mov	_cyclone,#0x01
+      0000C0 75 37 00         [24]  288 	mov	(_cyclone + 1),#0x00
+                                    289 ;	.\blink.c:11: static int direction = 0;
+      0000C3 E4               [12]  290 	clr	a
+      0000C4 F5 38            [12]  291 	mov	_direction,a
+      0000C6 F5 39            [12]  292 	mov	(_direction + 1),a
+                                    293 ;	.\blink.c:14: static int dual_cyclone = 1;
+      0000C8 75 3C 01         [24]  294 	mov	_dual_cyclone,#0x01
+      0000CB F5 3D            [12]  295 	mov	(_dual_cyclone + 1),a
+                                    296 ;	.\blink.c:15: static int reverse_cyclone = 0b10000000;
+      0000CD 75 3E 80         [24]  297 	mov	_reverse_cyclone,#0x80
+      0000D0 F5 3F            [12]  298 	mov	(_reverse_cyclone + 1),a
+                                    299 ;	.\blink.c:16: static int dual_direction = 0;
+      0000D2 F5 40            [12]  300 	mov	_dual_direction,a
+      0000D4 F5 41            [12]  301 	mov	(_dual_direction + 1),a
                                     302 ;--------------------------------------------------------
                                     303 ; Home
                                     304 ;--------------------------------------------------------
@@ -313,11 +313,11 @@
                                     313 ;------------------------------------------------------------
                                     314 ;mode                      Allocated to registers r6 r7 
                                     315 ;------------------------------------------------------------
-                                    316 ;	blink.c:18: void blink(void){
+                                    316 ;	.\blink.c:18: void blink(void){
                                     317 ;	-----------------------------------------
                                     318 ;	 function blink
                                     319 ;	-----------------------------------------
-      00043D                        320 _blink:
+      000468                        320 _blink:
                            000007   321 	ar7 = 0x07
                            000006   322 	ar6 = 0x06
                            000005   323 	ar5 = 0x05
@@ -326,235 +326,234 @@
                            000002   326 	ar2 = 0x02
                            000001   327 	ar1 = 0x01
                            000000   328 	ar0 = 0x00
-                                    329 ;	blink.c:19: if(counter < 50){
-      00043D C3               [12]  330 	clr	c
-      00043E E5 38            [12]  331 	mov	a,_counter
-      000440 94 32            [12]  332 	subb	a,#0x32
-      000442 E5 39            [12]  333 	mov	a,(_counter + 1)
-      000444 64 80            [12]  334 	xrl	a,#0x80
-      000446 94 80            [12]  335 	subb	a,#0x80
-      000448 50 09            [24]  336 	jnc	00102$
-                                    337 ;	blink.c:20: counter++;
-      00044A 05 38            [12]  338 	inc	_counter
-      00044C E4               [12]  339 	clr	a
-      00044D B5 38 02         [24]  340 	cjne	a,_counter,00215$
-      000450 05 39            [12]  341 	inc	(_counter + 1)
-      000452                        342 00215$:
-                                    343 ;	blink.c:21: return;
-      000452 22               [24]  344 	ret
-      000453                        345 00102$:
-                                    346 ;	blink.c:23: int mode = BLINK_MODE;
-      000453 AE 30            [24]  347 	mov	r6,_BLINK_MODE
-      000455 AF 31            [24]  348 	mov	r7,(_BLINK_MODE + 1)
-                                    349 ;	blink.c:24: switch(mode){
-      000457 BE 00 05         [24]  350 	cjne	r6,#0x00,00216$
-      00045A BF 00 02         [24]  351 	cjne	r7,#0x00,00216$
-      00045D 80 14            [24]  352 	sjmp	00103$
-      00045F                        353 00216$:
-      00045F BE 01 05         [24]  354 	cjne	r6,#0x01,00217$
-      000462 BF 00 02         [24]  355 	cjne	r7,#0x00,00217$
-      000465 80 2D            [24]  356 	sjmp	00104$
-      000467                        357 00217$:
-      000467 BE 02 06         [24]  358 	cjne	r6,#0x02,00218$
-      00046A BF 00 03         [24]  359 	cjne	r7,#0x00,00218$
-      00046D 02 04 F7         [24]  360 	ljmp	00115$
-      000470                        361 00218$:
-      000470 02 05 76         [24]  362 	ljmp	00126$
-                                    363 ;	blink.c:25: case 0:
-      000473                        364 00103$:
-                                    365 ;	blink.c:26: P1 = ~(binary_num);
-      000473 E5 32            [12]  366 	mov	a,_binary_num
-      000475 F4               [12]  367 	cpl	a
-      000476 F5 90            [12]  368 	mov	_P1,a
-                                    369 ;	blink.c:27: binary_num = (binary_num + 1) % 256;
-      000478 85 32 82         [24]  370 	mov	dpl,_binary_num
-      00047B 85 33 83         [24]  371 	mov	dph,(_binary_num + 1)
-      00047E A3               [24]  372 	inc	dptr
-      00047F 75 55 00         [24]  373 	mov	__modsint_PARM_2,#0x00
-      000482 75 56 01         [24]  374 	mov	(__modsint_PARM_2 + 1),#0x01
-      000485 12 09 A5         [24]  375 	lcall	__modsint
-      000488 85 82 32         [24]  376 	mov	_binary_num,dpl
-      00048B 85 83 33         [24]  377 	mov	(_binary_num + 1),dph
-                                    378 ;	blink.c:28: counter = 0;
-      00048E E4               [12]  379 	clr	a
-      00048F F5 38            [12]  380 	mov	_counter,a
-      000491 F5 39            [12]  381 	mov	(_counter + 1),a
-                                    382 ;	blink.c:29: break;
-      000493 22               [24]  383 	ret
-                                    384 ;	blink.c:30: case 1:
-      000494                        385 00104$:
-                                    386 ;	blink.c:31: P1 = ~(cyclone);
-      000494 E5 34            [12]  387 	mov	a,_cyclone
-      000496 F4               [12]  388 	cpl	a
-      000497 F5 90            [12]  389 	mov	_P1,a
-                                    390 ;	blink.c:32: if(cyclone == 0b10000000 && direction == 0){
-      000499 74 80            [12]  391 	mov	a,#0x80
-      00049B B5 34 06         [24]  392 	cjne	a,_cyclone,00219$
-      00049E E4               [12]  393 	clr	a
-      00049F B5 35 02         [24]  394 	cjne	a,(_cyclone + 1),00219$
-      0004A2 80 02            [24]  395 	sjmp	00220$
-      0004A4                        396 00219$:
-      0004A4 80 0D            [24]  397 	sjmp	00109$
-      0004A6                        398 00220$:
-      0004A6 E5 36            [12]  399 	mov	a,_direction
-      0004A8 45 37            [12]  400 	orl	a,(_direction + 1)
-                                    401 ;	blink.c:33: direction = 1;
-      0004AA 70 07            [24]  402 	jnz	00109$
-      0004AC 75 36 01         [24]  403 	mov	_direction,#0x01
-      0004AF F5 37            [12]  404 	mov	(_direction + 1),a
-      0004B1 80 1F            [24]  405 	sjmp	00110$
-      0004B3                        406 00109$:
-                                    407 ;	blink.c:34: } else if (cyclone == 1 && direction == 1){
-      0004B3 74 01            [12]  408 	mov	a,#0x01
-      0004B5 B5 34 06         [24]  409 	cjne	a,_cyclone,00222$
-      0004B8 14               [12]  410 	dec	a
-      0004B9 B5 35 02         [24]  411 	cjne	a,(_cyclone + 1),00222$
-      0004BC 80 02            [24]  412 	sjmp	00223$
-      0004BE                        413 00222$:
-      0004BE 80 12            [24]  414 	sjmp	00110$
-      0004C0                        415 00223$:
-      0004C0 74 01            [12]  416 	mov	a,#0x01
-      0004C2 B5 36 06         [24]  417 	cjne	a,_direction,00224$
-      0004C5 14               [12]  418 	dec	a
-      0004C6 B5 37 02         [24]  419 	cjne	a,(_direction + 1),00224$
-      0004C9 80 02            [24]  420 	sjmp	00225$
-      0004CB                        421 00224$:
-      0004CB 80 05            [24]  422 	sjmp	00110$
-      0004CD                        423 00225$:
-                                    424 ;	blink.c:35: direction = 0;
-      0004CD E4               [12]  425 	clr	a
-      0004CE F5 36            [12]  426 	mov	_direction,a
-      0004D0 F5 37            [12]  427 	mov	(_direction + 1),a
-      0004D2                        428 00110$:
-                                    429 ;	blink.c:38: if(direction == 0){
-      0004D2 E5 36            [12]  430 	mov	a,_direction
-      0004D4 45 37            [12]  431 	orl	a,(_direction + 1)
-      0004D6 70 0D            [24]  432 	jnz	00113$
-                                    433 ;	blink.c:39: cyclone <<= 1;
-      0004D8 E5 34            [12]  434 	mov	a,_cyclone
-      0004DA 25 34            [12]  435 	add	a,_cyclone
-      0004DC F5 34            [12]  436 	mov	_cyclone,a
-      0004DE E5 35            [12]  437 	mov	a,(_cyclone + 1)
-      0004E0 33               [12]  438 	rlc	a
-      0004E1 F5 35            [12]  439 	mov	(_cyclone + 1),a
-      0004E3 80 0C            [24]  440 	sjmp	00114$
-      0004E5                        441 00113$:
-                                    442 ;	blink.c:41: cyclone >>= 1;
-      0004E5 E5 35            [12]  443 	mov	a,(_cyclone + 1)
-      0004E7 A2 E7            [12]  444 	mov	c,acc.7
-      0004E9 13               [12]  445 	rrc	a
-      0004EA C5 34            [12]  446 	xch	a,_cyclone
-      0004EC 13               [12]  447 	rrc	a
-      0004ED C5 34            [12]  448 	xch	a,_cyclone
-      0004EF F5 35            [12]  449 	mov	(_cyclone + 1),a
-      0004F1                        450 00114$:
-                                    451 ;	blink.c:43: counter = 0;
-      0004F1 E4               [12]  452 	clr	a
-      0004F2 F5 38            [12]  453 	mov	_counter,a
-      0004F4 F5 39            [12]  454 	mov	(_counter + 1),a
-                                    455 ;	blink.c:44: break;
-      0004F6 22               [24]  456 	ret
-                                    457 ;	blink.c:45: case 2:
-      0004F7                        458 00115$:
-                                    459 ;	blink.c:46: P1 = ~(dual_cyclone | reverse_cyclone);
-      0004F7 AF 3A            [24]  460 	mov	r7,_dual_cyclone
-      0004F9 E5 3C            [12]  461 	mov	a,_reverse_cyclone
-      0004FB 42 07            [12]  462 	orl	ar7,a
-      0004FD EF               [12]  463 	mov	a,r7
-      0004FE F4               [12]  464 	cpl	a
-      0004FF F5 90            [12]  465 	mov	_P1,a
-                                    466 ;	blink.c:47: if(reverse_cyclone == 1 && dual_direction == 0){
-      000501 74 01            [12]  467 	mov	a,#0x01
-      000503 B5 3C 06         [24]  468 	cjne	a,_reverse_cyclone,00227$
-      000506 14               [12]  469 	dec	a
-      000507 B5 3D 02         [24]  470 	cjne	a,(_reverse_cyclone + 1),00227$
-      00050A 80 02            [24]  471 	sjmp	00228$
-      00050C                        472 00227$:
-      00050C 80 0D            [24]  473 	sjmp	00120$
-      00050E                        474 00228$:
-      00050E E5 3E            [12]  475 	mov	a,_dual_direction
-      000510 45 3F            [12]  476 	orl	a,(_dual_direction + 1)
-                                    477 ;	blink.c:48: dual_direction = 1;
-      000512 70 07            [24]  478 	jnz	00120$
-      000514 75 3E 01         [24]  479 	mov	_dual_direction,#0x01
-      000517 F5 3F            [12]  480 	mov	(_dual_direction + 1),a
-      000519 80 1F            [24]  481 	sjmp	00121$
-      00051B                        482 00120$:
-                                    483 ;	blink.c:49: } else if (dual_cyclone == 1 && dual_direction == 1){
-      00051B 74 01            [12]  484 	mov	a,#0x01
-      00051D B5 3A 06         [24]  485 	cjne	a,_dual_cyclone,00230$
-      000520 14               [12]  486 	dec	a
-      000521 B5 3B 02         [24]  487 	cjne	a,(_dual_cyclone + 1),00230$
-      000524 80 02            [24]  488 	sjmp	00231$
-      000526                        489 00230$:
-      000526 80 12            [24]  490 	sjmp	00121$
-      000528                        491 00231$:
-      000528 74 01            [12]  492 	mov	a,#0x01
-      00052A B5 3E 06         [24]  493 	cjne	a,_dual_direction,00232$
-      00052D 14               [12]  494 	dec	a
-      00052E B5 3F 02         [24]  495 	cjne	a,(_dual_direction + 1),00232$
-      000531 80 02            [24]  496 	sjmp	00233$
-      000533                        497 00232$:
-      000533 80 05            [24]  498 	sjmp	00121$
-      000535                        499 00233$:
-                                    500 ;	blink.c:50: dual_direction = 0;
-      000535 E4               [12]  501 	clr	a
-      000536 F5 3E            [12]  502 	mov	_dual_direction,a
-      000538 F5 3F            [12]  503 	mov	(_dual_direction + 1),a
-      00053A                        504 00121$:
-                                    505 ;	blink.c:53: if(dual_direction == 0){
-      00053A E5 3E            [12]  506 	mov	a,_dual_direction
-      00053C 45 3F            [12]  507 	orl	a,(_dual_direction + 1)
-      00053E 70 19            [24]  508 	jnz	00124$
-                                    509 ;	blink.c:54: dual_cyclone <<= 1;
-      000540 E5 3A            [12]  510 	mov	a,_dual_cyclone
-      000542 25 3A            [12]  511 	add	a,_dual_cyclone
-      000544 F5 3A            [12]  512 	mov	_dual_cyclone,a
-      000546 E5 3B            [12]  513 	mov	a,(_dual_cyclone + 1)
-      000548 33               [12]  514 	rlc	a
-      000549 F5 3B            [12]  515 	mov	(_dual_cyclone + 1),a
-                                    516 ;	blink.c:55: reverse_cyclone >>= 1;
-      00054B E5 3D            [12]  517 	mov	a,(_reverse_cyclone + 1)
-      00054D A2 E7            [12]  518 	mov	c,acc.7
-      00054F 13               [12]  519 	rrc	a
-      000550 C5 3C            [12]  520 	xch	a,_reverse_cyclone
-      000552 13               [12]  521 	rrc	a
-      000553 C5 3C            [12]  522 	xch	a,_reverse_cyclone
-      000555 F5 3D            [12]  523 	mov	(_reverse_cyclone + 1),a
-      000557 80 17            [24]  524 	sjmp	00125$
-      000559                        525 00124$:
-                                    526 ;	blink.c:57: dual_cyclone >>= 1;
-      000559 E5 3B            [12]  527 	mov	a,(_dual_cyclone + 1)
-      00055B A2 E7            [12]  528 	mov	c,acc.7
-      00055D 13               [12]  529 	rrc	a
-      00055E C5 3A            [12]  530 	xch	a,_dual_cyclone
-      000560 13               [12]  531 	rrc	a
-      000561 C5 3A            [12]  532 	xch	a,_dual_cyclone
-      000563 F5 3B            [12]  533 	mov	(_dual_cyclone + 1),a
-                                    534 ;	blink.c:58: reverse_cyclone <<= 1;
-      000565 E5 3C            [12]  535 	mov	a,_reverse_cyclone
-      000567 25 3C            [12]  536 	add	a,_reverse_cyclone
-      000569 F5 3C            [12]  537 	mov	_reverse_cyclone,a
-      00056B E5 3D            [12]  538 	mov	a,(_reverse_cyclone + 1)
-      00056D 33               [12]  539 	rlc	a
-      00056E F5 3D            [12]  540 	mov	(_reverse_cyclone + 1),a
-      000570                        541 00125$:
-                                    542 ;	blink.c:60: counter = 0;
-      000570 E4               [12]  543 	clr	a
-      000571 F5 38            [12]  544 	mov	_counter,a
-      000573 F5 39            [12]  545 	mov	(_counter + 1),a
-                                    546 ;	blink.c:61: break;
-                                    547 ;	blink.c:62: default:
-      000575 22               [24]  548 	ret
-      000576                        549 00126$:
-                                    550 ;	blink.c:63: counter = 0;
-      000576 E4               [12]  551 	clr	a
-      000577 F5 38            [12]  552 	mov	_counter,a
-      000579 F5 39            [12]  553 	mov	(_counter + 1),a
-                                    554 ;	blink.c:65: }
-                                    555 ;	blink.c:66: }
-      00057B 22               [24]  556 	ret
-                                    557 	.area CSEG    (CODE)
-                                    558 	.area CONST   (CODE)
-                                    559 	.area XINIT   (CODE)
-                                    560 	.area CABS    (ABS,CODE)
+                                    329 ;	.\blink.c:19: if(BLINK_COUNTER < 50){
+      000468 C3               [12]  330 	clr	c
+      000469 E5 32            [12]  331 	mov	a,_BLINK_COUNTER
+      00046B 94 32            [12]  332 	subb	a,#0x32
+      00046D E5 33            [12]  333 	mov	a,(_BLINK_COUNTER + 1)
+      00046F 64 80            [12]  334 	xrl	a,#0x80
+      000471 94 80            [12]  335 	subb	a,#0x80
+      000473 50 01            [24]  336 	jnc	00102$
+                                    337 ;	.\blink.c:20: return;
+      000475 22               [24]  338 	ret
+      000476                        339 00102$:
+                                    340 ;	.\blink.c:22: int mode = BLINK_MODE;
+      000476 AE 30            [24]  341 	mov	r6,_BLINK_MODE
+      000478 AF 31            [24]  342 	mov	r7,(_BLINK_MODE + 1)
+                                    343 ;	.\blink.c:23: switch(mode){
+      00047A BE 00 05         [24]  344 	cjne	r6,#0x00,00215$
+      00047D BF 00 02         [24]  345 	cjne	r7,#0x00,00215$
+      000480 80 14            [24]  346 	sjmp	00103$
+      000482                        347 00215$:
+      000482 BE 01 05         [24]  348 	cjne	r6,#0x01,00216$
+      000485 BF 00 02         [24]  349 	cjne	r7,#0x00,00216$
+      000488 80 2F            [24]  350 	sjmp	00104$
+      00048A                        351 00216$:
+      00048A BE 02 06         [24]  352 	cjne	r6,#0x02,00217$
+      00048D BF 00 03         [24]  353 	cjne	r7,#0x00,00217$
+      000490 02 05 1E         [24]  354 	ljmp	00115$
+      000493                        355 00217$:
+      000493 02 05 9E         [24]  356 	ljmp	00126$
+                                    357 ;	.\blink.c:24: case 0:
+      000496                        358 00103$:
+                                    359 ;	.\blink.c:25: P1 = ~(binary_num);
+      000496 E5 34            [12]  360 	mov	a,_binary_num
+      000498 F4               [12]  361 	cpl	a
+      000499 F5 90            [12]  362 	mov	_P1,a
+                                    363 ;	.\blink.c:26: binary_num = (binary_num + 1) % 256;
+      00049B 85 34 82         [24]  364 	mov	dpl,_binary_num
+      00049E 85 35 83         [24]  365 	mov	dph,(_binary_num + 1)
+      0004A1 A3               [24]  366 	inc	dptr
+      0004A2 75 57 00         [24]  367 	mov	__modsint_PARM_2,#0x00
+      0004A5 75 58 01         [24]  368 	mov	(__modsint_PARM_2 + 1),#0x01
+      0004A8 12 09 B2         [24]  369 	lcall	__modsint
+      0004AB 85 82 34         [24]  370 	mov	_binary_num,dpl
+      0004AE 85 83 35         [24]  371 	mov	(_binary_num + 1),dph
+                                    372 ;	.\blink.c:27: counter = 0;
+      0004B1 E4               [12]  373 	clr	a
+      0004B2 F5 3A            [12]  374 	mov	_counter,a
+      0004B4 F5 3B            [12]  375 	mov	(_counter + 1),a
+                                    376 ;	.\blink.c:28: break;
+      0004B6 02 05 A3         [24]  377 	ljmp	00127$
+                                    378 ;	.\blink.c:29: case 1:
+      0004B9                        379 00104$:
+                                    380 ;	.\blink.c:30: P1 = ~(cyclone);
+      0004B9 E5 36            [12]  381 	mov	a,_cyclone
+      0004BB F4               [12]  382 	cpl	a
+      0004BC F5 90            [12]  383 	mov	_P1,a
+                                    384 ;	.\blink.c:31: if(cyclone == 0b10000000 && direction == 0){
+      0004BE 74 80            [12]  385 	mov	a,#0x80
+      0004C0 B5 36 06         [24]  386 	cjne	a,_cyclone,00218$
+      0004C3 E4               [12]  387 	clr	a
+      0004C4 B5 37 02         [24]  388 	cjne	a,(_cyclone + 1),00218$
+      0004C7 80 02            [24]  389 	sjmp	00219$
+      0004C9                        390 00218$:
+      0004C9 80 0D            [24]  391 	sjmp	00109$
+      0004CB                        392 00219$:
+      0004CB E5 38            [12]  393 	mov	a,_direction
+      0004CD 45 39            [12]  394 	orl	a,(_direction + 1)
+                                    395 ;	.\blink.c:32: direction = 1;
+      0004CF 70 07            [24]  396 	jnz	00109$
+      0004D1 75 38 01         [24]  397 	mov	_direction,#0x01
+      0004D4 F5 39            [12]  398 	mov	(_direction + 1),a
+      0004D6 80 1F            [24]  399 	sjmp	00110$
+      0004D8                        400 00109$:
+                                    401 ;	.\blink.c:33: } else if (cyclone == 1 && direction == 1){
+      0004D8 74 01            [12]  402 	mov	a,#0x01
+      0004DA B5 36 06         [24]  403 	cjne	a,_cyclone,00221$
+      0004DD 14               [12]  404 	dec	a
+      0004DE B5 37 02         [24]  405 	cjne	a,(_cyclone + 1),00221$
+      0004E1 80 02            [24]  406 	sjmp	00222$
+      0004E3                        407 00221$:
+      0004E3 80 12            [24]  408 	sjmp	00110$
+      0004E5                        409 00222$:
+      0004E5 74 01            [12]  410 	mov	a,#0x01
+      0004E7 B5 38 06         [24]  411 	cjne	a,_direction,00223$
+      0004EA 14               [12]  412 	dec	a
+      0004EB B5 39 02         [24]  413 	cjne	a,(_direction + 1),00223$
+      0004EE 80 02            [24]  414 	sjmp	00224$
+      0004F0                        415 00223$:
+      0004F0 80 05            [24]  416 	sjmp	00110$
+      0004F2                        417 00224$:
+                                    418 ;	.\blink.c:34: direction = 0;
+      0004F2 E4               [12]  419 	clr	a
+      0004F3 F5 38            [12]  420 	mov	_direction,a
+      0004F5 F5 39            [12]  421 	mov	(_direction + 1),a
+      0004F7                        422 00110$:
+                                    423 ;	.\blink.c:37: if(direction == 0){
+      0004F7 E5 38            [12]  424 	mov	a,_direction
+      0004F9 45 39            [12]  425 	orl	a,(_direction + 1)
+      0004FB 70 0D            [24]  426 	jnz	00113$
+                                    427 ;	.\blink.c:38: cyclone <<= 1;
+      0004FD E5 36            [12]  428 	mov	a,_cyclone
+      0004FF 25 36            [12]  429 	add	a,_cyclone
+      000501 F5 36            [12]  430 	mov	_cyclone,a
+      000503 E5 37            [12]  431 	mov	a,(_cyclone + 1)
+      000505 33               [12]  432 	rlc	a
+      000506 F5 37            [12]  433 	mov	(_cyclone + 1),a
+      000508 80 0C            [24]  434 	sjmp	00114$
+      00050A                        435 00113$:
+                                    436 ;	.\blink.c:40: cyclone >>= 1;
+      00050A E5 37            [12]  437 	mov	a,(_cyclone + 1)
+      00050C A2 E7            [12]  438 	mov	c,acc.7
+      00050E 13               [12]  439 	rrc	a
+      00050F C5 36            [12]  440 	xch	a,_cyclone
+      000511 13               [12]  441 	rrc	a
+      000512 C5 36            [12]  442 	xch	a,_cyclone
+      000514 F5 37            [12]  443 	mov	(_cyclone + 1),a
+      000516                        444 00114$:
+                                    445 ;	.\blink.c:42: counter = 0;
+      000516 E4               [12]  446 	clr	a
+      000517 F5 3A            [12]  447 	mov	_counter,a
+      000519 F5 3B            [12]  448 	mov	(_counter + 1),a
+                                    449 ;	.\blink.c:43: break;
+      00051B 02 05 A3         [24]  450 	ljmp	00127$
+                                    451 ;	.\blink.c:44: case 2:
+      00051E                        452 00115$:
+                                    453 ;	.\blink.c:45: P1 = ~(dual_cyclone | reverse_cyclone);
+      00051E AF 3C            [24]  454 	mov	r7,_dual_cyclone
+      000520 E5 3E            [12]  455 	mov	a,_reverse_cyclone
+      000522 42 07            [12]  456 	orl	ar7,a
+      000524 EF               [12]  457 	mov	a,r7
+      000525 F4               [12]  458 	cpl	a
+      000526 F5 90            [12]  459 	mov	_P1,a
+                                    460 ;	.\blink.c:46: if(reverse_cyclone == 1 && dual_direction == 0){
+      000528 74 01            [12]  461 	mov	a,#0x01
+      00052A B5 3E 06         [24]  462 	cjne	a,_reverse_cyclone,00226$
+      00052D 14               [12]  463 	dec	a
+      00052E B5 3F 02         [24]  464 	cjne	a,(_reverse_cyclone + 1),00226$
+      000531 80 02            [24]  465 	sjmp	00227$
+      000533                        466 00226$:
+      000533 80 0D            [24]  467 	sjmp	00120$
+      000535                        468 00227$:
+      000535 E5 40            [12]  469 	mov	a,_dual_direction
+      000537 45 41            [12]  470 	orl	a,(_dual_direction + 1)
+                                    471 ;	.\blink.c:47: dual_direction = 1;
+      000539 70 07            [24]  472 	jnz	00120$
+      00053B 75 40 01         [24]  473 	mov	_dual_direction,#0x01
+      00053E F5 41            [12]  474 	mov	(_dual_direction + 1),a
+      000540 80 1F            [24]  475 	sjmp	00121$
+      000542                        476 00120$:
+                                    477 ;	.\blink.c:48: } else if (dual_cyclone == 1 && dual_direction == 1){
+      000542 74 01            [12]  478 	mov	a,#0x01
+      000544 B5 3C 06         [24]  479 	cjne	a,_dual_cyclone,00229$
+      000547 14               [12]  480 	dec	a
+      000548 B5 3D 02         [24]  481 	cjne	a,(_dual_cyclone + 1),00229$
+      00054B 80 02            [24]  482 	sjmp	00230$
+      00054D                        483 00229$:
+      00054D 80 12            [24]  484 	sjmp	00121$
+      00054F                        485 00230$:
+      00054F 74 01            [12]  486 	mov	a,#0x01
+      000551 B5 40 06         [24]  487 	cjne	a,_dual_direction,00231$
+      000554 14               [12]  488 	dec	a
+      000555 B5 41 02         [24]  489 	cjne	a,(_dual_direction + 1),00231$
+      000558 80 02            [24]  490 	sjmp	00232$
+      00055A                        491 00231$:
+      00055A 80 05            [24]  492 	sjmp	00121$
+      00055C                        493 00232$:
+                                    494 ;	.\blink.c:49: dual_direction = 0;
+      00055C E4               [12]  495 	clr	a
+      00055D F5 40            [12]  496 	mov	_dual_direction,a
+      00055F F5 41            [12]  497 	mov	(_dual_direction + 1),a
+      000561                        498 00121$:
+                                    499 ;	.\blink.c:52: if(dual_direction == 0){
+      000561 E5 40            [12]  500 	mov	a,_dual_direction
+      000563 45 41            [12]  501 	orl	a,(_dual_direction + 1)
+      000565 70 19            [24]  502 	jnz	00124$
+                                    503 ;	.\blink.c:53: dual_cyclone <<= 1;
+      000567 E5 3C            [12]  504 	mov	a,_dual_cyclone
+      000569 25 3C            [12]  505 	add	a,_dual_cyclone
+      00056B F5 3C            [12]  506 	mov	_dual_cyclone,a
+      00056D E5 3D            [12]  507 	mov	a,(_dual_cyclone + 1)
+      00056F 33               [12]  508 	rlc	a
+      000570 F5 3D            [12]  509 	mov	(_dual_cyclone + 1),a
+                                    510 ;	.\blink.c:54: reverse_cyclone >>= 1;
+      000572 E5 3F            [12]  511 	mov	a,(_reverse_cyclone + 1)
+      000574 A2 E7            [12]  512 	mov	c,acc.7
+      000576 13               [12]  513 	rrc	a
+      000577 C5 3E            [12]  514 	xch	a,_reverse_cyclone
+      000579 13               [12]  515 	rrc	a
+      00057A C5 3E            [12]  516 	xch	a,_reverse_cyclone
+      00057C F5 3F            [12]  517 	mov	(_reverse_cyclone + 1),a
+      00057E 80 17            [24]  518 	sjmp	00125$
+      000580                        519 00124$:
+                                    520 ;	.\blink.c:56: dual_cyclone >>= 1;
+      000580 E5 3D            [12]  521 	mov	a,(_dual_cyclone + 1)
+      000582 A2 E7            [12]  522 	mov	c,acc.7
+      000584 13               [12]  523 	rrc	a
+      000585 C5 3C            [12]  524 	xch	a,_dual_cyclone
+      000587 13               [12]  525 	rrc	a
+      000588 C5 3C            [12]  526 	xch	a,_dual_cyclone
+      00058A F5 3D            [12]  527 	mov	(_dual_cyclone + 1),a
+                                    528 ;	.\blink.c:57: reverse_cyclone <<= 1;
+      00058C E5 3E            [12]  529 	mov	a,_reverse_cyclone
+      00058E 25 3E            [12]  530 	add	a,_reverse_cyclone
+      000590 F5 3E            [12]  531 	mov	_reverse_cyclone,a
+      000592 E5 3F            [12]  532 	mov	a,(_reverse_cyclone + 1)
+      000594 33               [12]  533 	rlc	a
+      000595 F5 3F            [12]  534 	mov	(_reverse_cyclone + 1),a
+      000597                        535 00125$:
+                                    536 ;	.\blink.c:59: counter = 0;
+      000597 E4               [12]  537 	clr	a
+      000598 F5 3A            [12]  538 	mov	_counter,a
+      00059A F5 3B            [12]  539 	mov	(_counter + 1),a
+                                    540 ;	.\blink.c:60: break;
+                                    541 ;	.\blink.c:61: default:
+      00059C 80 05            [24]  542 	sjmp	00127$
+      00059E                        543 00126$:
+                                    544 ;	.\blink.c:62: counter = 0;
+      00059E E4               [12]  545 	clr	a
+      00059F F5 3A            [12]  546 	mov	_counter,a
+      0005A1 F5 3B            [12]  547 	mov	(_counter + 1),a
+                                    548 ;	.\blink.c:64: }
+      0005A3                        549 00127$:
+                                    550 ;	.\blink.c:65: BLINK_COUNTER = 0;
+      0005A3 E4               [12]  551 	clr	a
+      0005A4 F5 32            [12]  552 	mov	_BLINK_COUNTER,a
+      0005A6 F5 33            [12]  553 	mov	(_BLINK_COUNTER + 1),a
+                                    554 ;	.\blink.c:66: }
+      0005A8 22               [24]  555 	ret
+                                    556 	.area CSEG    (CODE)
+                                    557 	.area CONST   (CODE)
+                                    558 	.area XINIT   (CODE)
+                                    559 	.area CABS    (ABS,CODE)

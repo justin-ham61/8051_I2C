@@ -70,19 +70,19 @@ C:   00000020  s__CODE
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
 C:   00000035  s_GSINIT4                       
-C:   00000055  s_OSEG                          
-C:   00000059  s_SSEG                          
+C:   00000057  s_OSEG                          
+C:   0000005B  s_SSEG                          
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000080  l_DSEG                          
-C:   00000093  l_GSINIT                        
-C:   000000A7  l_SSEG                          
-C:   000000F2  s_GSFINAL                       
-C:   000000F5  s_CSEG                          
+C:   00000097  l_GSINIT                        
+C:   000000A5  l_SSEG                          
+C:   000000F6  s_GSFINAL                       
+C:   000000F9  s_CSEG                          
 C:   00000100  l_IRAM                          
-C:   000008EA  l_CSEG                          
-C:   000009DF  s_CONST                         
-C:   000009F9  s_XINIT                         
+C:   000008F3  l_CSEG                          
+C:   000009EC  s_CONST                         
+C:   00000A06  s_XINIT                         
 
 ASxxxx Linker V03.00/V05.40 + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -227,32 +227,32 @@ DSEG                                00000000    00000080 =         128. bytes (R
      00000024  _current_val                       screen
      0000002E  _SCREEN_FLAG                       global
      00000030  _BLINK_MODE                        global
-     0000004E  _display_2_PARM_2                  lcd
-     00000051  _display_2_PARM_3                  lcd
-     00000053  _display_2_PARM_4                  lcd
-
+     00000032  _BLINK_COUNTER                     global
+     00000050  _display_2_PARM_2                  lcd
+     00000053  _display_2_PARM_3                  lcd
+     00000055  _display_2_PARM_4                  lcd
 ASxxxx Linker V03.00/V05.40 + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-OSEG                                00000055    00000004 =           4. bytes (REL,OVR)
+OSEG                                00000057    00000004 =           4. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000055  __modsint_PARM_2                   _moduint
-     00000055  __moduint_PARM_2                   _moduint
+     00000057  __modsint_PARM_2                   _moduint
+     00000057  __moduint_PARM_2                   _moduint
 
 ASxxxx Linker V03.00/V05.40 + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000059    000000A7 =         167. bytes (REL,OVR)
+SSEG                                0000005B    000000A5 =         165. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000059  __start__stack                     main
+     0000005B  __start__stack                     main
 
 ASxxxx Linker V03.00/V05.40 + sdld,  page 9.
 Hexadecimal  [32-Bits]
@@ -313,7 +313,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT                              0000005F    00000093 =         147. bytes (REL,CON,CODE)
+GSINIT                              0000005F    00000097 =         151. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -322,7 +322,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             000000F2    00000003 =           3. bytes (REL,CON,CODE)
+GSFINAL                             000000F6    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -331,46 +331,46 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                000000F5    000008EA =        2282. bytes (REL,CON,CODE)
+CSEG                                000000F9    000008F3 =        2291. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000000F5  _main                              main
-C:   00000128  _init_debounce_timer               main
-C:   00000134  _display_poll                      screen
-C:   000002B3  _display                           screen
-C:   00000314  _button_poll                       button
-C:   000003B7  _button_handle                     button
-C:   000003FF  _reset_timer                       global
-C:   0000040C  _delay                             global
-C:   0000043D  _blink                             blink
-C:   0000057C  _blinkLED                          led
-C:   0000059C  _I2C_poll                          I2C
-C:   000005EF  _next_handle                       I2C
-C:   00000696  _stcon_Handler                     I2C
-C:   0000069F  _dout_Handler                      I2C
-C:   000006CC  _stpcon_Handler                    I2C
-C:   000006D5  _read_Handler                      I2C
-C:   00000720  _display_2                         lcd
-C:   0000075F  _init_display                      lcd
-C:   0000077D  _start_con                         lcd
-C:   0000078B  _stop_con                          lcd
-C:   00000799  _send_command                      lcd
-C:   00000829  _send_data                         lcd
-C:   000008B9  _send_str                          lcd
-C:   000008F4  _write                             lcd
-C:   00000930  _ack                               lcd
-C:   0000093C  __moduint                          _moduint
-C:   00000989  __gptrget                          _gptrget
-C:   000009A5  __modsint                          _modsint
-C:   000009DB  ___sdcc_external_startup           _startup
-
+C:   000000F9  _main                              main
+C:   00000135  _init_debounce_timer               main
+C:   0000013E  _init_blink_timer                  main
+C:   00000147  _blink_timer                       main
+C:   0000015F  _display_poll                      screen
+C:   000002DE  _display                           screen
+C:   0000033F  _button_poll                       button
+C:   000003E2  _button_handle                     button
+C:   0000042A  _reset_timer                       global
+C:   00000437  _delay                             global
+C:   00000468  _blink                             blink
+C:   000005A9  _I2C_poll                          I2C
+C:   000005FC  _next_handle                       I2C
+C:   000006A3  _stcon_Handler                     I2C
+C:   000006AC  _dout_Handler                      I2C
+C:   000006D9  _stpcon_Handler                    I2C
+C:   000006E2  _read_Handler                      I2C
+C:   0000072D  _display_2                         lcd
+C:   0000076C  _init_display                      lcd
+C:   0000078A  _start_con                         lcd
+C:   00000798  _stop_con                          lcd
+C:   000007A6  _send_command                      lcd
+C:   00000836  _send_data                         lcd
+C:   000008C6  _send_str                          lcd
+C:   00000901  _write                             lcd
+C:   0000093D  _ack                               lcd
+C:   00000949  __moduint                          _moduint
+C:   00000996  __gptrget                          _gptrget
+C:   000009B2  __modsint                          _modsint
+C:   000009E8  ___sdcc_external_startup           _startup
 ASxxxx Linker V03.00/V05.40 + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000009DF    0000001A =          26. bytes (REL,CON,CODE)
+CONST                               000009EC    0000001A =          26. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -379,13 +379,12 @@ CONST                               000009DF    0000001A =          26. bytes (R
 Files Linked                              [ module(s) ]
 
 main.rel                                  [  ]
-screen.rel                                [  ]
-button.rel                                [  ]
+screen/screen.rel                         [  ]
+button/button.rel                         [  ]
 global.rel                                [  ]
-blink.rel                                 [  ]
-led.rel                                   [  ]
-I2C.rel                                   [  ]
-lcd.rel                                   [  ]
+blink/blink.rel                           [  ]
+I2C/I2C.rel                               [  ]
+lcd/lcd.rel                               [  ]
 
 
 Libraries Linked                          [ object file ]
