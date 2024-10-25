@@ -305,6 +305,7 @@ Symbol Table
 
     _TR1                                                        =  00008E G
     _TXD                                                        =  0000B1 G
+ 17 _Timer1_ISR                                                    00004F GR
     _WR                                                         =  0000B6 G
  18 ___str_0                                                       000000 R
  18 ___str_1                                                       00000C R
@@ -313,10 +314,9 @@ Symbol Table
     __mcs51_genXINIT                                               ****** GX
     __mcs51_genXRAMCLEAR                                           ****** GX
     __sdcc_gsinit_startup                                          ****** GX
-  E __sdcc_program_startup                                         000003 GR
+  E __sdcc_program_startup                                         00001E GR
   6 __start__stack                                                 000000 GR
     _blink                                                         ****** GX
- 17 _blink_timer                                                   00004E GR
     _button_poll                                                   ****** GX
     _display                                                       ****** GX
     _display_2                                                     ****** GX
@@ -324,8 +324,8 @@ Symbol Table
     _display_2_PARM_3                                              ****** GX
     _display_2_PARM_4                                              ****** GX
     _display_poll                                                  ****** GX
- 17 _init_blink_timer                                              000045 GR
- 17 _init_debounce_timer                                           00003C GR
+ 17 _init_blink_timer                                              000042 GR
+ 17 _init_debounce_timer                                           000039 GR
     _init_display                                                  ****** GX
  17 _main                                                          000000 GR
     a                                                           =  0000E0 L
@@ -548,7 +548,7 @@ Area Table
    B XSEG                                       size      0   flags   40
    C XABS                                       size      0   flags   48
    D XISEG                                      size      0   flags   40
-   E HOME                                       size      6   flags   20
+   E HOME                                       size     21   flags   20
    F GSINIT0                                    size      0   flags   20
   10 GSINIT1                                    size      0   flags   20
   11 GSINIT2                                    size      0   flags   20
@@ -557,7 +557,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size     66   flags   20
+  17 CSEG                                       size     7A   flags   20
   18 CONST                                      size     1A   flags   20
   19 XINIT                                      size      0   flags   20
   1A CABS                                       size      0   flags   28

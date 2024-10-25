@@ -297,7 +297,7 @@
                                     297 ;	-----------------------------------------
                                     298 ;	 function button_poll
                                     299 ;	-----------------------------------------
-      00033F                        300 _button_poll:
+      00036E                        300 _button_poll:
                            000007   301 	ar7 = 0x07
                            000006   302 	ar6 = 0x06
                            000005   303 	ar5 = 0x05
@@ -307,114 +307,114 @@
                            000001   307 	ar1 = 0x01
                            000000   308 	ar0 = 0x00
                                     309 ;	.\button.c:15: int button_press = 0x00;
-      00033F 7E 00            [12]  310 	mov	r6,#0x00
-      000341 7F 00            [12]  311 	mov	r7,#0x00
+      00036E 7E 00            [12]  310 	mov	r6,#0x00
+      000370 7F 00            [12]  311 	mov	r7,#0x00
                                     312 ;	.\button.c:18: if(P3_5 == 0){
-      000343 20 B5 0A         [24]  313 	jb	_P3_5,00104$
+      000372 20 B5 0A         [24]  313 	jb	_P3_5,00104$
                                     314 ;	.\button.c:19: S1_COUNT++;
-      000346 05 26            [12]  315 	inc	_S1_COUNT
-      000348 E4               [12]  316 	clr	a
-      000349 B5 26 1D         [24]  317 	cjne	a,_S1_COUNT,00105$
-      00034C 05 27            [12]  318 	inc	(_S1_COUNT + 1)
-      00034E 80 19            [24]  319 	sjmp	00105$
-      000350                        320 00104$:
+      000375 05 26            [12]  315 	inc	_S1_COUNT
+      000377 E4               [12]  316 	clr	a
+      000378 B5 26 1D         [24]  317 	cjne	a,_S1_COUNT,00105$
+      00037B 05 27            [12]  318 	inc	(_S1_COUNT + 1)
+      00037D 80 19            [24]  319 	sjmp	00105$
+      00037F                        320 00104$:
                                     321 ;	.\button.c:20: } else if (S1_COUNT > 4){
-      000350 C3               [12]  322 	clr	c
-      000351 74 04            [12]  323 	mov	a,#0x04
-      000353 95 26            [12]  324 	subb	a,_S1_COUNT
-      000355 74 80            [12]  325 	mov	a,#(0x00 ^ 0x80)
-      000357 85 27 F0         [24]  326 	mov	b,(_S1_COUNT + 1)
-      00035A 63 F0 80         [24]  327 	xrl	b,#0x80
-      00035D 95 F0            [12]  328 	subb	a,b
-      00035F 50 08            [24]  329 	jnc	00105$
+      00037F C3               [12]  322 	clr	c
+      000380 74 04            [12]  323 	mov	a,#0x04
+      000382 95 26            [12]  324 	subb	a,_S1_COUNT
+      000384 74 80            [12]  325 	mov	a,#(0x00 ^ 0x80)
+      000386 85 27 F0         [24]  326 	mov	b,(_S1_COUNT + 1)
+      000389 63 F0 80         [24]  327 	xrl	b,#0x80
+      00038C 95 F0            [12]  328 	subb	a,b
+      00038E 50 08            [24]  329 	jnc	00105$
                                     330 ;	.\button.c:21: button_press |= 0x08;
-      000361 7E 08            [12]  331 	mov	r6,#0x08
+      000390 7E 08            [12]  331 	mov	r6,#0x08
                                     332 ;	.\button.c:22: S1_COUNT = 0;
-      000363 E4               [12]  333 	clr	a
-      000364 FF               [12]  334 	mov	r7,a
-      000365 F5 26            [12]  335 	mov	_S1_COUNT,a
-      000367 F5 27            [12]  336 	mov	(_S1_COUNT + 1),a
-      000369                        337 00105$:
+      000392 E4               [12]  333 	clr	a
+      000393 FF               [12]  334 	mov	r7,a
+      000394 F5 26            [12]  335 	mov	_S1_COUNT,a
+      000396 F5 27            [12]  336 	mov	(_S1_COUNT + 1),a
+      000398                        337 00105$:
                                     338 ;	.\button.c:26: if(P3_4 == 0){
-      000369 20 B4 0A         [24]  339 	jb	_P3_4,00109$
+      000398 20 B4 0A         [24]  339 	jb	_P3_4,00109$
                                     340 ;	.\button.c:27: S2_COUNT++;
-      00036C 05 28            [12]  341 	inc	_S2_COUNT
-      00036E E4               [12]  342 	clr	a
-      00036F B5 28 1D         [24]  343 	cjne	a,_S2_COUNT,00110$
-      000372 05 29            [12]  344 	inc	(_S2_COUNT + 1)
-      000374 80 19            [24]  345 	sjmp	00110$
-      000376                        346 00109$:
+      00039B 05 28            [12]  341 	inc	_S2_COUNT
+      00039D E4               [12]  342 	clr	a
+      00039E B5 28 1D         [24]  343 	cjne	a,_S2_COUNT,00110$
+      0003A1 05 29            [12]  344 	inc	(_S2_COUNT + 1)
+      0003A3 80 19            [24]  345 	sjmp	00110$
+      0003A5                        346 00109$:
                                     347 ;	.\button.c:28: } else if (S2_COUNT > 4){
-      000376 C3               [12]  348 	clr	c
-      000377 74 04            [12]  349 	mov	a,#0x04
-      000379 95 28            [12]  350 	subb	a,_S2_COUNT
-      00037B 74 80            [12]  351 	mov	a,#(0x00 ^ 0x80)
-      00037D 85 29 F0         [24]  352 	mov	b,(_S2_COUNT + 1)
-      000380 63 F0 80         [24]  353 	xrl	b,#0x80
-      000383 95 F0            [12]  354 	subb	a,b
-      000385 50 08            [24]  355 	jnc	00110$
+      0003A5 C3               [12]  348 	clr	c
+      0003A6 74 04            [12]  349 	mov	a,#0x04
+      0003A8 95 28            [12]  350 	subb	a,_S2_COUNT
+      0003AA 74 80            [12]  351 	mov	a,#(0x00 ^ 0x80)
+      0003AC 85 29 F0         [24]  352 	mov	b,(_S2_COUNT + 1)
+      0003AF 63 F0 80         [24]  353 	xrl	b,#0x80
+      0003B2 95 F0            [12]  354 	subb	a,b
+      0003B4 50 08            [24]  355 	jnc	00110$
                                     356 ;	.\button.c:29: button_press |= 0x04;
-      000387 43 06 04         [24]  357 	orl	ar6,#0x04
+      0003B6 43 06 04         [24]  357 	orl	ar6,#0x04
                                     358 ;	.\button.c:30: S2_COUNT = 0;
-      00038A E4               [12]  359 	clr	a
-      00038B F5 28            [12]  360 	mov	_S2_COUNT,a
-      00038D F5 29            [12]  361 	mov	(_S2_COUNT + 1),a
-      00038F                        362 00110$:
+      0003B9 E4               [12]  359 	clr	a
+      0003BA F5 28            [12]  360 	mov	_S2_COUNT,a
+      0003BC F5 29            [12]  361 	mov	(_S2_COUNT + 1),a
+      0003BE                        362 00110$:
                                     363 ;	.\button.c:35: if(P3_3 == 0){
-      00038F 20 B3 0A         [24]  364 	jb	_P3_3,00114$
+      0003BE 20 B3 0A         [24]  364 	jb	_P3_3,00114$
                                     365 ;	.\button.c:36: S3_COUNT++;
-      000392 05 2A            [12]  366 	inc	_S3_COUNT
-      000394 E4               [12]  367 	clr	a
-      000395 B5 2A 1D         [24]  368 	cjne	a,_S3_COUNT,00115$
-      000398 05 2B            [12]  369 	inc	(_S3_COUNT + 1)
-      00039A 80 19            [24]  370 	sjmp	00115$
-      00039C                        371 00114$:
+      0003C1 05 2A            [12]  366 	inc	_S3_COUNT
+      0003C3 E4               [12]  367 	clr	a
+      0003C4 B5 2A 1D         [24]  368 	cjne	a,_S3_COUNT,00115$
+      0003C7 05 2B            [12]  369 	inc	(_S3_COUNT + 1)
+      0003C9 80 19            [24]  370 	sjmp	00115$
+      0003CB                        371 00114$:
                                     372 ;	.\button.c:37: } else if (S3_COUNT > 4){
-      00039C C3               [12]  373 	clr	c
-      00039D 74 04            [12]  374 	mov	a,#0x04
-      00039F 95 2A            [12]  375 	subb	a,_S3_COUNT
-      0003A1 74 80            [12]  376 	mov	a,#(0x00 ^ 0x80)
-      0003A3 85 2B F0         [24]  377 	mov	b,(_S3_COUNT + 1)
-      0003A6 63 F0 80         [24]  378 	xrl	b,#0x80
-      0003A9 95 F0            [12]  379 	subb	a,b
-      0003AB 50 08            [24]  380 	jnc	00115$
+      0003CB C3               [12]  373 	clr	c
+      0003CC 74 04            [12]  374 	mov	a,#0x04
+      0003CE 95 2A            [12]  375 	subb	a,_S3_COUNT
+      0003D0 74 80            [12]  376 	mov	a,#(0x00 ^ 0x80)
+      0003D2 85 2B F0         [24]  377 	mov	b,(_S3_COUNT + 1)
+      0003D5 63 F0 80         [24]  378 	xrl	b,#0x80
+      0003D8 95 F0            [12]  379 	subb	a,b
+      0003DA 50 08            [24]  380 	jnc	00115$
                                     381 ;	.\button.c:38: button_press |= 0x02;
-      0003AD 43 06 02         [24]  382 	orl	ar6,#0x02
+      0003DC 43 06 02         [24]  382 	orl	ar6,#0x02
                                     383 ;	.\button.c:39: S3_COUNT = 0;
-      0003B0 E4               [12]  384 	clr	a
-      0003B1 F5 2A            [12]  385 	mov	_S3_COUNT,a
-      0003B3 F5 2B            [12]  386 	mov	(_S3_COUNT + 1),a
-      0003B5                        387 00115$:
+      0003DF E4               [12]  384 	clr	a
+      0003E0 F5 2A            [12]  385 	mov	_S3_COUNT,a
+      0003E2 F5 2B            [12]  386 	mov	(_S3_COUNT + 1),a
+      0003E4                        387 00115$:
                                     388 ;	.\button.c:44: if(P3_2 == 0){
-      0003B5 20 B2 0A         [24]  389 	jb	_P3_2,00119$
+      0003E4 20 B2 0A         [24]  389 	jb	_P3_2,00119$
                                     390 ;	.\button.c:45: S4_COUNT++;
-      0003B8 05 2C            [12]  391 	inc	_S4_COUNT
-      0003BA E4               [12]  392 	clr	a
-      0003BB B5 2C 1D         [24]  393 	cjne	a,_S4_COUNT,00120$
-      0003BE 05 2D            [12]  394 	inc	(_S4_COUNT + 1)
-      0003C0 80 19            [24]  395 	sjmp	00120$
-      0003C2                        396 00119$:
+      0003E7 05 2C            [12]  391 	inc	_S4_COUNT
+      0003E9 E4               [12]  392 	clr	a
+      0003EA B5 2C 1D         [24]  393 	cjne	a,_S4_COUNT,00120$
+      0003ED 05 2D            [12]  394 	inc	(_S4_COUNT + 1)
+      0003EF 80 19            [24]  395 	sjmp	00120$
+      0003F1                        396 00119$:
                                     397 ;	.\button.c:46: } else if (S4_COUNT > 4){
-      0003C2 C3               [12]  398 	clr	c
-      0003C3 74 04            [12]  399 	mov	a,#0x04
-      0003C5 95 2C            [12]  400 	subb	a,_S4_COUNT
-      0003C7 74 80            [12]  401 	mov	a,#(0x00 ^ 0x80)
-      0003C9 85 2D F0         [24]  402 	mov	b,(_S4_COUNT + 1)
-      0003CC 63 F0 80         [24]  403 	xrl	b,#0x80
-      0003CF 95 F0            [12]  404 	subb	a,b
-      0003D1 50 08            [24]  405 	jnc	00120$
+      0003F1 C3               [12]  398 	clr	c
+      0003F2 74 04            [12]  399 	mov	a,#0x04
+      0003F4 95 2C            [12]  400 	subb	a,_S4_COUNT
+      0003F6 74 80            [12]  401 	mov	a,#(0x00 ^ 0x80)
+      0003F8 85 2D F0         [24]  402 	mov	b,(_S4_COUNT + 1)
+      0003FB 63 F0 80         [24]  403 	xrl	b,#0x80
+      0003FE 95 F0            [12]  404 	subb	a,b
+      000400 50 08            [24]  405 	jnc	00120$
                                     406 ;	.\button.c:47: button_press |= 0x01;
-      0003D3 43 06 01         [24]  407 	orl	ar6,#0x01
+      000402 43 06 01         [24]  407 	orl	ar6,#0x01
                                     408 ;	.\button.c:48: S4_COUNT = 0;
-      0003D6 E4               [12]  409 	clr	a
-      0003D7 F5 2C            [12]  410 	mov	_S4_COUNT,a
-      0003D9 F5 2D            [12]  411 	mov	(_S4_COUNT + 1),a
-      0003DB                        412 00120$:
+      000405 E4               [12]  409 	clr	a
+      000406 F5 2C            [12]  410 	mov	_S4_COUNT,a
+      000408 F5 2D            [12]  411 	mov	(_S4_COUNT + 1),a
+      00040A                        412 00120$:
                                     413 ;	.\button.c:50: button_handle(button_press);
-      0003DB 8E 82            [24]  414 	mov	dpl, r6
-      0003DD 8F 83            [24]  415 	mov	dph, r7
+      00040A 8E 82            [24]  414 	mov	dpl, r6
+      00040C 8F 83            [24]  415 	mov	dph, r7
                                     416 ;	.\button.c:51: }
-      0003DF 02 03 E2         [24]  417 	ljmp	_button_handle
+      00040E 02 04 11         [24]  417 	ljmp	_button_handle
                                     418 ;------------------------------------------------------------
                                     419 ;Allocation info for local variables in function 'button_handle'
                                     420 ;------------------------------------------------------------
@@ -424,59 +424,59 @@
                                     424 ;	-----------------------------------------
                                     425 ;	 function button_handle
                                     426 ;	-----------------------------------------
-      0003E2                        427 _button_handle:
-      0003E2 AE 82            [24]  428 	mov	r6, dpl
-      0003E4 AF 83            [24]  429 	mov	r7, dph
+      000411                        427 _button_handle:
+      000411 AE 82            [24]  428 	mov	r6, dpl
+      000413 AF 83            [24]  429 	mov	r7, dph
                                     430 ;	.\button.c:61: if(button_press & 1){
-      0003E6 EE               [12]  431 	mov	a,r6
-      0003E7 30 E0 06         [24]  432 	jnb	acc.0,00102$
+      000415 EE               [12]  431 	mov	a,r6
+      000416 30 E0 06         [24]  432 	jnb	acc.0,00102$
                                     433 ;	.\button.c:62: SCREEN_FLAG = 0x0F;
-      0003EA 75 2E 0F         [24]  434 	mov	_SCREEN_FLAG,#0x0f
-      0003ED 75 2F 00         [24]  435 	mov	(_SCREEN_FLAG + 1),#0x00
-      0003F0                        436 00102$:
+      000419 75 2E 0F         [24]  434 	mov	_SCREEN_FLAG,#0x0f
+      00041C 75 2F 00         [24]  435 	mov	(_SCREEN_FLAG + 1),#0x00
+      00041F                        436 00102$:
                                     437 ;	.\button.c:66: button_press >>= 1;
-      0003F0 EF               [12]  438 	mov	a,r7
-      0003F1 A2 E7            [12]  439 	mov	c,acc.7
-      0003F3 13               [12]  440 	rrc	a
-      0003F4 CE               [12]  441 	xch	a,r6
-      0003F5 13               [12]  442 	rrc	a
-      0003F6 CE               [12]  443 	xch	a,r6
-      0003F7 FF               [12]  444 	mov	r7,a
+      00041F EF               [12]  438 	mov	a,r7
+      000420 A2 E7            [12]  439 	mov	c,acc.7
+      000422 13               [12]  440 	rrc	a
+      000423 CE               [12]  441 	xch	a,r6
+      000424 13               [12]  442 	rrc	a
+      000425 CE               [12]  443 	xch	a,r6
+      000426 FF               [12]  444 	mov	r7,a
                                     445 ;	.\button.c:68: if(button_press & 1){
-      0003F8 EE               [12]  446 	mov	a,r6
-      0003F9 30 E0 06         [24]  447 	jnb	acc.0,00104$
+      000427 EE               [12]  446 	mov	a,r6
+      000428 30 E0 06         [24]  447 	jnb	acc.0,00104$
                                     448 ;	.\button.c:69: SCREEN_FLAG = 0xF0;
-      0003FC 75 2E F0         [24]  449 	mov	_SCREEN_FLAG,#0xf0
-      0003FF 75 2F 00         [24]  450 	mov	(_SCREEN_FLAG + 1),#0x00
-      000402                        451 00104$:
+      00042B 75 2E F0         [24]  449 	mov	_SCREEN_FLAG,#0xf0
+      00042E 75 2F 00         [24]  450 	mov	(_SCREEN_FLAG + 1),#0x00
+      000431                        451 00104$:
                                     452 ;	.\button.c:73: button_press >>= 1; 
-      000402 EF               [12]  453 	mov	a,r7
-      000403 A2 E7            [12]  454 	mov	c,acc.7
-      000405 13               [12]  455 	rrc	a
-      000406 CE               [12]  456 	xch	a,r6
-      000407 13               [12]  457 	rrc	a
-      000408 CE               [12]  458 	xch	a,r6
+      000431 EF               [12]  453 	mov	a,r7
+      000432 A2 E7            [12]  454 	mov	c,acc.7
+      000434 13               [12]  455 	rrc	a
+      000435 CE               [12]  456 	xch	a,r6
+      000436 13               [12]  457 	rrc	a
+      000437 CE               [12]  458 	xch	a,r6
                                     459 ;	.\button.c:79: button_press >>= 1; 
-      000409 A2 E7            [12]  460 	mov	c,acc.7
-      00040B 13               [12]  461 	rrc	a
-      00040C CE               [12]  462 	xch	a,r6
-      00040D 13               [12]  463 	rrc	a
-      00040E CE               [12]  464 	xch	a,r6
+      000438 A2 E7            [12]  460 	mov	c,acc.7
+      00043A 13               [12]  461 	rrc	a
+      00043B CE               [12]  462 	xch	a,r6
+      00043C 13               [12]  463 	rrc	a
+      00043D CE               [12]  464 	xch	a,r6
                                     465 ;	.\button.c:81: if(button_press & 1){
-      00040F EE               [12]  466 	mov	a,r6
-      000410 30 E0 16         [24]  467 	jnb	acc.0,00107$
+      00043E EE               [12]  466 	mov	a,r6
+      00043F 30 E0 16         [24]  467 	jnb	acc.0,00107$
                                     468 ;	.\button.c:83: BLINK_MODE = (BLINK_MODE + 1) % 3;
-      000413 85 30 82         [24]  469 	mov	dpl,_BLINK_MODE
-      000416 85 31 83         [24]  470 	mov	dph,(_BLINK_MODE + 1)
-      000419 A3               [24]  471 	inc	dptr
-      00041A 75 57 03         [24]  472 	mov	__modsint_PARM_2,#0x03
-      00041D 75 58 00         [24]  473 	mov	(__modsint_PARM_2 + 1),#0x00
-      000420 12 09 B2         [24]  474 	lcall	__modsint
-      000423 85 82 30         [24]  475 	mov	_BLINK_MODE,dpl
-      000426 85 83 31         [24]  476 	mov	(_BLINK_MODE + 1),dph
-      000429                        477 00107$:
+      000442 85 30 82         [24]  469 	mov	dpl,_BLINK_MODE
+      000445 85 31 83         [24]  470 	mov	dph,(_BLINK_MODE + 1)
+      000448 A3               [24]  471 	inc	dptr
+      000449 75 57 03         [24]  472 	mov	__modsint_PARM_2,#0x03
+      00044C 75 58 00         [24]  473 	mov	(__modsint_PARM_2 + 1),#0x00
+      00044F 12 09 E1         [24]  474 	lcall	__modsint
+      000452 85 82 30         [24]  475 	mov	_BLINK_MODE,dpl
+      000455 85 83 31         [24]  476 	mov	(_BLINK_MODE + 1),dph
+      000458                        477 00107$:
                                     478 ;	.\button.c:87: }
-      000429 22               [24]  479 	ret
+      000458 22               [24]  479 	ret
                                     480 	.area CSEG    (CODE)
                                     481 	.area CONST   (CODE)
                                     482 	.area XINIT   (CODE)

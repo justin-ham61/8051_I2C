@@ -280,16 +280,16 @@
                                     280 	.area GSINIT  (CODE)
                                     281 	.area GSFINAL (CODE)
                                     282 	.area GSINIT  (CODE)
-                                    283 ;	global.c:4: int SCREEN_FLAG = 0x00;
-      0000B0 E4               [12]  284 	clr	a
-      0000B1 F5 2E            [12]  285 	mov	_SCREEN_FLAG,a
-      0000B3 F5 2F            [12]  286 	mov	(_SCREEN_FLAG + 1),a
-                                    287 ;	global.c:5: int BLINK_MODE = 0;
-      0000B5 F5 30            [12]  288 	mov	_BLINK_MODE,a
-      0000B7 F5 31            [12]  289 	mov	(_BLINK_MODE + 1),a
-                                    290 ;	global.c:6: int BLINK_COUNTER = 0;
-      0000B9 F5 32            [12]  291 	mov	_BLINK_COUNTER,a
-      0000BB F5 33            [12]  292 	mov	(_BLINK_COUNTER + 1),a
+                                    283 ;	.\global.c:4: int SCREEN_FLAG = 0x00;
+      0000CB E4               [12]  284 	clr	a
+      0000CC F5 2E            [12]  285 	mov	_SCREEN_FLAG,a
+      0000CE F5 2F            [12]  286 	mov	(_SCREEN_FLAG + 1),a
+                                    287 ;	.\global.c:5: int BLINK_MODE = 0;
+      0000D0 F5 30            [12]  288 	mov	_BLINK_MODE,a
+      0000D2 F5 31            [12]  289 	mov	(_BLINK_MODE + 1),a
+                                    290 ;	.\global.c:6: volatile int BLINK_COUNTER = 0;
+      0000D4 F5 32            [12]  291 	mov	_BLINK_COUNTER,a
+      0000D6 F5 33            [12]  292 	mov	(_BLINK_COUNTER + 1),a
                                     293 ;--------------------------------------------------------
                                     294 ; Home
                                     295 ;--------------------------------------------------------
@@ -302,11 +302,11 @@
                                     302 ;------------------------------------------------------------
                                     303 ;Allocation info for local variables in function 'reset_timer'
                                     304 ;------------------------------------------------------------
-                                    305 ;	global.c:8: void reset_timer(void){
+                                    305 ;	.\global.c:8: void reset_timer(void){
                                     306 ;	-----------------------------------------
                                     307 ;	 function reset_timer
                                     308 ;	-----------------------------------------
-      00042A                        309 _reset_timer:
+      000459                        309 _reset_timer:
                            000007   310 	ar7 = 0x07
                            000006   311 	ar6 = 0x06
                            000005   312 	ar5 = 0x05
@@ -315,21 +315,21 @@
                            000002   315 	ar2 = 0x02
                            000001   316 	ar1 = 0x01
                            000000   317 	ar0 = 0x00
-                                    318 ;	global.c:9: TR0 = 0;
+                                    318 ;	.\global.c:9: TR0 = 0;
                                     319 ;	assignBit
-      00042A C2 8C            [12]  320 	clr	_TR0
-                                    321 ;	global.c:10: TH0 = 0x00;
-      00042C 75 8C 00         [24]  322 	mov	_TH0,#0x00
-                                    323 ;	global.c:11: TL0 = 0x00;
-      00042F 75 8A 00         [24]  324 	mov	_TL0,#0x00
-                                    325 ;	global.c:12: TF0 = 0;
+      000459 C2 8C            [12]  320 	clr	_TR0
+                                    321 ;	.\global.c:10: TH0 = 0x00;
+      00045B 75 8C 00         [24]  322 	mov	_TH0,#0x00
+                                    323 ;	.\global.c:11: TL0 = 0x00;
+      00045E 75 8A 00         [24]  324 	mov	_TL0,#0x00
+                                    325 ;	.\global.c:12: TF0 = 0;
                                     326 ;	assignBit
-      000432 C2 8D            [12]  327 	clr	_TF0
-                                    328 ;	global.c:13: TR0 = 1;
+      000461 C2 8D            [12]  327 	clr	_TF0
+                                    328 ;	.\global.c:13: TR0 = 1;
                                     329 ;	assignBit
-      000434 D2 8C            [12]  330 	setb	_TR0
-                                    331 ;	global.c:14: }
-      000436 22               [24]  332 	ret
+      000463 D2 8C            [12]  330 	setb	_TR0
+                                    331 ;	.\global.c:14: }
+      000465 22               [24]  332 	ret
                                     333 ;------------------------------------------------------------
                                     334 ;Allocation info for local variables in function 'delay'
                                     335 ;------------------------------------------------------------
@@ -337,48 +337,48 @@
                                     337 ;j                         Allocated to registers r6 r7 
                                     338 ;k                         Allocated to registers r4 r5 
                                     339 ;------------------------------------------------------------
-                                    340 ;	global.c:16: void delay(int i){
+                                    340 ;	.\global.c:16: void delay(int i){
                                     341 ;	-----------------------------------------
                                     342 ;	 function delay
                                     343 ;	-----------------------------------------
-      000437                        344 _delay:
-      000437 AE 82            [24]  345 	mov	r6, dpl
-      000439 AF 83            [24]  346 	mov	r7, dph
-                                    347 ;	global.c:18: for (j = i; j > 0; j--)
-      00043B                        348 00106$:
-      00043B C3               [12]  349 	clr	c
-      00043C E4               [12]  350 	clr	a
-      00043D 9E               [12]  351 	subb	a,r6
-      00043E 74 80            [12]  352 	mov	a,#(0x00 ^ 0x80)
-      000440 8F F0            [24]  353 	mov	b,r7
-      000442 63 F0 80         [24]  354 	xrl	b,#0x80
-      000445 95 F0            [12]  355 	subb	a,b
-      000447 50 1E            [24]  356 	jnc	00108$
-                                    357 ;	global.c:19: for (k = 125; k > 0; k--);
-      000449 7C 7D            [12]  358 	mov	r4,#0x7d
-      00044B 7D 00            [12]  359 	mov	r5,#0x00
-      00044D                        360 00104$:
-      00044D 1C               [12]  361 	dec	r4
-      00044E BC FF 01         [24]  362 	cjne	r4,#0xff,00137$
-      000451 1D               [12]  363 	dec	r5
-      000452                        364 00137$:
-      000452 C3               [12]  365 	clr	c
-      000453 E4               [12]  366 	clr	a
-      000454 9C               [12]  367 	subb	a,r4
-      000455 74 80            [12]  368 	mov	a,#(0x00 ^ 0x80)
-      000457 8D F0            [24]  369 	mov	b,r5
-      000459 63 F0 80         [24]  370 	xrl	b,#0x80
-      00045C 95 F0            [12]  371 	subb	a,b
-      00045E 40 ED            [24]  372 	jc	00104$
-                                    373 ;	global.c:18: for (j = i; j > 0; j--)
-      000460 1E               [12]  374 	dec	r6
-      000461 BE FF 01         [24]  375 	cjne	r6,#0xff,00139$
-      000464 1F               [12]  376 	dec	r7
-      000465                        377 00139$:
-      000465 80 D4            [24]  378 	sjmp	00106$
-      000467                        379 00108$:
-                                    380 ;	global.c:20: }
-      000467 22               [24]  381 	ret
+      000466                        344 _delay:
+      000466 AE 82            [24]  345 	mov	r6, dpl
+      000468 AF 83            [24]  346 	mov	r7, dph
+                                    347 ;	.\global.c:18: for (j = i; j > 0; j--)
+      00046A                        348 00106$:
+      00046A C3               [12]  349 	clr	c
+      00046B E4               [12]  350 	clr	a
+      00046C 9E               [12]  351 	subb	a,r6
+      00046D 74 80            [12]  352 	mov	a,#(0x00 ^ 0x80)
+      00046F 8F F0            [24]  353 	mov	b,r7
+      000471 63 F0 80         [24]  354 	xrl	b,#0x80
+      000474 95 F0            [12]  355 	subb	a,b
+      000476 50 1E            [24]  356 	jnc	00108$
+                                    357 ;	.\global.c:19: for (k = 125; k > 0; k--);
+      000478 7C 7D            [12]  358 	mov	r4,#0x7d
+      00047A 7D 00            [12]  359 	mov	r5,#0x00
+      00047C                        360 00104$:
+      00047C 1C               [12]  361 	dec	r4
+      00047D BC FF 01         [24]  362 	cjne	r4,#0xff,00137$
+      000480 1D               [12]  363 	dec	r5
+      000481                        364 00137$:
+      000481 C3               [12]  365 	clr	c
+      000482 E4               [12]  366 	clr	a
+      000483 9C               [12]  367 	subb	a,r4
+      000484 74 80            [12]  368 	mov	a,#(0x00 ^ 0x80)
+      000486 8D F0            [24]  369 	mov	b,r5
+      000488 63 F0 80         [24]  370 	xrl	b,#0x80
+      00048B 95 F0            [12]  371 	subb	a,b
+      00048D 40 ED            [24]  372 	jc	00104$
+                                    373 ;	.\global.c:18: for (j = i; j > 0; j--)
+      00048F 1E               [12]  374 	dec	r6
+      000490 BE FF 01         [24]  375 	cjne	r6,#0xff,00139$
+      000493 1F               [12]  376 	dec	r7
+      000494                        377 00139$:
+      000494 80 D4            [24]  378 	sjmp	00106$
+      000496                        379 00108$:
+                                    380 ;	.\global.c:20: }
+      000496 22               [24]  381 	ret
                                     382 	.area CSEG    (CODE)
                                     383 	.area CONST   (CODE)
                                     384 	.area XINIT   (CODE)

@@ -9,7 +9,6 @@
 
 void init_debounce_timer(void);
 void init_blink_timer(void);
-void blink_timer(void);
 
 void main(void){
     TMOD = 0x01;
@@ -26,7 +25,6 @@ void main(void){
         display();
         blink();
         I2C_poll();
-        blink_timer();
     }
 }
 
@@ -40,15 +38,14 @@ void init_blink_timer(void){
     TH1 = 0x00;
     TL1 = 0x00;
     TR1 = 1;
+    ET1 = 1;
+    EA = 1;
 }
 
-void blink_timer(void){
-    if(TF1 == 1){
-        TR1 = 0;
-        BLINK_COUNTER++;
-        TH1 = 0;
-        TL1 = 0;
-        TF1 = 0;
-        TR1 = 1;
-    }
+void Timer1_ISR(void) __interrupt (3) {
+	TF1 = 0;
+	TH1 = 0;
+	TL1 = 0;
+	TR1 = 1;
+	BLINK_COUNTER++;
 }

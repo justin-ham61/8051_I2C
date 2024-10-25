@@ -8,113 +8,113 @@
                                       8 ;--------------------------------------------------------
                                       9 ; Public variables in this module
                                      10 ;--------------------------------------------------------
-                                     11 	.globl _main
-                                     12 	.globl _display_2
-                                     13 	.globl _init_display
-                                     14 	.globl _I2C_poll
-                                     15 	.globl _blink
-                                     16 	.globl _button_poll
-                                     17 	.globl _display
-                                     18 	.globl _display_poll
-                                     19 	.globl _CY
-                                     20 	.globl _AC
-                                     21 	.globl _F0
-                                     22 	.globl _RS1
-                                     23 	.globl _RS0
-                                     24 	.globl _OV
-                                     25 	.globl _F1
-                                     26 	.globl _P
-                                     27 	.globl _PS
-                                     28 	.globl _PT1
-                                     29 	.globl _PX1
-                                     30 	.globl _PT0
-                                     31 	.globl _PX0
-                                     32 	.globl _RD
-                                     33 	.globl _WR
-                                     34 	.globl _T1
-                                     35 	.globl _T0
-                                     36 	.globl _INT1
-                                     37 	.globl _INT0
-                                     38 	.globl _TXD
-                                     39 	.globl _RXD
-                                     40 	.globl _P3_7
-                                     41 	.globl _P3_6
-                                     42 	.globl _P3_5
-                                     43 	.globl _P3_4
-                                     44 	.globl _P3_3
-                                     45 	.globl _P3_2
-                                     46 	.globl _P3_1
-                                     47 	.globl _P3_0
-                                     48 	.globl _EA
-                                     49 	.globl _ES
-                                     50 	.globl _ET1
-                                     51 	.globl _EX1
-                                     52 	.globl _ET0
-                                     53 	.globl _EX0
-                                     54 	.globl _P2_7
-                                     55 	.globl _P2_6
-                                     56 	.globl _P2_5
-                                     57 	.globl _P2_4
-                                     58 	.globl _P2_3
-                                     59 	.globl _P2_2
-                                     60 	.globl _P2_1
-                                     61 	.globl _P2_0
-                                     62 	.globl _SM0
-                                     63 	.globl _SM1
-                                     64 	.globl _SM2
-                                     65 	.globl _REN
-                                     66 	.globl _TB8
-                                     67 	.globl _RB8
-                                     68 	.globl _TI
-                                     69 	.globl _RI
-                                     70 	.globl _P1_7
-                                     71 	.globl _P1_6
-                                     72 	.globl _P1_5
-                                     73 	.globl _P1_4
-                                     74 	.globl _P1_3
-                                     75 	.globl _P1_2
-                                     76 	.globl _P1_1
-                                     77 	.globl _P1_0
-                                     78 	.globl _TF1
-                                     79 	.globl _TR1
-                                     80 	.globl _TF0
-                                     81 	.globl _TR0
-                                     82 	.globl _IE1
-                                     83 	.globl _IT1
-                                     84 	.globl _IE0
-                                     85 	.globl _IT0
-                                     86 	.globl _P0_7
-                                     87 	.globl _P0_6
-                                     88 	.globl _P0_5
-                                     89 	.globl _P0_4
-                                     90 	.globl _P0_3
-                                     91 	.globl _P0_2
-                                     92 	.globl _P0_1
-                                     93 	.globl _P0_0
-                                     94 	.globl _B
-                                     95 	.globl _ACC
-                                     96 	.globl _PSW
-                                     97 	.globl _IP
-                                     98 	.globl _P3
-                                     99 	.globl _IE
-                                    100 	.globl _P2
-                                    101 	.globl _SBUF
-                                    102 	.globl _SCON
-                                    103 	.globl _P1
-                                    104 	.globl _TH1
-                                    105 	.globl _TH0
-                                    106 	.globl _TL1
-                                    107 	.globl _TL0
-                                    108 	.globl _TMOD
-                                    109 	.globl _TCON
-                                    110 	.globl _PCON
-                                    111 	.globl _DPH
-                                    112 	.globl _DPL
-                                    113 	.globl _SP
-                                    114 	.globl _P0
-                                    115 	.globl _init_debounce_timer
-                                    116 	.globl _init_blink_timer
-                                    117 	.globl _blink_timer
+                                     11 	.globl _Timer1_ISR
+                                     12 	.globl _main
+                                     13 	.globl _display_2
+                                     14 	.globl _init_display
+                                     15 	.globl _I2C_poll
+                                     16 	.globl _blink
+                                     17 	.globl _button_poll
+                                     18 	.globl _display
+                                     19 	.globl _display_poll
+                                     20 	.globl _CY
+                                     21 	.globl _AC
+                                     22 	.globl _F0
+                                     23 	.globl _RS1
+                                     24 	.globl _RS0
+                                     25 	.globl _OV
+                                     26 	.globl _F1
+                                     27 	.globl _P
+                                     28 	.globl _PS
+                                     29 	.globl _PT1
+                                     30 	.globl _PX1
+                                     31 	.globl _PT0
+                                     32 	.globl _PX0
+                                     33 	.globl _RD
+                                     34 	.globl _WR
+                                     35 	.globl _T1
+                                     36 	.globl _T0
+                                     37 	.globl _INT1
+                                     38 	.globl _INT0
+                                     39 	.globl _TXD
+                                     40 	.globl _RXD
+                                     41 	.globl _P3_7
+                                     42 	.globl _P3_6
+                                     43 	.globl _P3_5
+                                     44 	.globl _P3_4
+                                     45 	.globl _P3_3
+                                     46 	.globl _P3_2
+                                     47 	.globl _P3_1
+                                     48 	.globl _P3_0
+                                     49 	.globl _EA
+                                     50 	.globl _ES
+                                     51 	.globl _ET1
+                                     52 	.globl _EX1
+                                     53 	.globl _ET0
+                                     54 	.globl _EX0
+                                     55 	.globl _P2_7
+                                     56 	.globl _P2_6
+                                     57 	.globl _P2_5
+                                     58 	.globl _P2_4
+                                     59 	.globl _P2_3
+                                     60 	.globl _P2_2
+                                     61 	.globl _P2_1
+                                     62 	.globl _P2_0
+                                     63 	.globl _SM0
+                                     64 	.globl _SM1
+                                     65 	.globl _SM2
+                                     66 	.globl _REN
+                                     67 	.globl _TB8
+                                     68 	.globl _RB8
+                                     69 	.globl _TI
+                                     70 	.globl _RI
+                                     71 	.globl _P1_7
+                                     72 	.globl _P1_6
+                                     73 	.globl _P1_5
+                                     74 	.globl _P1_4
+                                     75 	.globl _P1_3
+                                     76 	.globl _P1_2
+                                     77 	.globl _P1_1
+                                     78 	.globl _P1_0
+                                     79 	.globl _TF1
+                                     80 	.globl _TR1
+                                     81 	.globl _TF0
+                                     82 	.globl _TR0
+                                     83 	.globl _IE1
+                                     84 	.globl _IT1
+                                     85 	.globl _IE0
+                                     86 	.globl _IT0
+                                     87 	.globl _P0_7
+                                     88 	.globl _P0_6
+                                     89 	.globl _P0_5
+                                     90 	.globl _P0_4
+                                     91 	.globl _P0_3
+                                     92 	.globl _P0_2
+                                     93 	.globl _P0_1
+                                     94 	.globl _P0_0
+                                     95 	.globl _B
+                                     96 	.globl _ACC
+                                     97 	.globl _PSW
+                                     98 	.globl _IP
+                                     99 	.globl _P3
+                                    100 	.globl _IE
+                                    101 	.globl _P2
+                                    102 	.globl _SBUF
+                                    103 	.globl _SCON
+                                    104 	.globl _P1
+                                    105 	.globl _TH1
+                                    106 	.globl _TH0
+                                    107 	.globl _TL1
+                                    108 	.globl _TL0
+                                    109 	.globl _TMOD
+                                    110 	.globl _TCON
+                                    111 	.globl _PCON
+                                    112 	.globl _DPH
+                                    113 	.globl _DPL
+                                    114 	.globl _SP
+                                    115 	.globl _P0
+                                    116 	.globl _init_debounce_timer
+                                    117 	.globl _init_blink_timer
                                     118 ;--------------------------------------------------------
                                     119 ; special function registers
                                     120 ;--------------------------------------------------------
@@ -284,165 +284,185 @@
                                     284 ;--------------------------------------------------------
                                     285 	.area HOME    (CODE)
       000000                        286 __interrupt_vect:
-      000000 02 00 06         [24]  287 	ljmp	__sdcc_gsinit_startup
-                                    288 ;--------------------------------------------------------
-                                    289 ; global & static initialisations
-                                    290 ;--------------------------------------------------------
-                                    291 	.area HOME    (CODE)
-                                    292 	.area GSINIT  (CODE)
-                                    293 	.area GSFINAL (CODE)
-                                    294 	.area GSINIT  (CODE)
-                                    295 	.globl __sdcc_gsinit_startup
-                                    296 	.globl __sdcc_program_startup
-                                    297 	.globl __start__stack
-                                    298 	.globl __mcs51_genXINIT
-                                    299 	.globl __mcs51_genXRAMCLEAR
-                                    300 	.globl __mcs51_genRAMCLEAR
-                                    301 	.area GSFINAL (CODE)
-      0000F6 02 00 03         [24]  302 	ljmp	__sdcc_program_startup
-                                    303 ;--------------------------------------------------------
-                                    304 ; Home
-                                    305 ;--------------------------------------------------------
-                                    306 	.area HOME    (CODE)
-                                    307 	.area HOME    (CODE)
-      000003                        308 __sdcc_program_startup:
-      000003 02 00 F9         [24]  309 	ljmp	_main
-                                    310 ;	return from main will return to caller
-                                    311 ;--------------------------------------------------------
-                                    312 ; code
-                                    313 ;--------------------------------------------------------
-                                    314 	.area CSEG    (CODE)
-                                    315 ;------------------------------------------------------------
-                                    316 ;Allocation info for local variables in function 'main'
-                                    317 ;------------------------------------------------------------
-                                    318 ;	main.c:14: void main(void){
-                                    319 ;	-----------------------------------------
-                                    320 ;	 function main
-                                    321 ;	-----------------------------------------
-      0000F9                        322 _main:
-                           000007   323 	ar7 = 0x07
-                           000006   324 	ar6 = 0x06
-                           000005   325 	ar5 = 0x05
-                           000004   326 	ar4 = 0x04
-                           000003   327 	ar3 = 0x03
-                           000002   328 	ar2 = 0x02
-                           000001   329 	ar1 = 0x01
-                           000000   330 	ar0 = 0x00
-                                    331 ;	main.c:15: TMOD = 0x01;
-      0000F9 75 89 01         [24]  332 	mov	_TMOD,#0x01
-                                    333 ;	main.c:16: init_display();
-      0000FC 12 07 6C         [24]  334 	lcall	_init_display
-                                    335 ;	main.c:17: init_debounce_timer();
-      0000FF 12 01 35         [24]  336 	lcall	_init_debounce_timer
-                                    337 ;	main.c:18: init_blink_timer();
-      000102 12 01 3E         [24]  338 	lcall	_init_blink_timer
-                                    339 ;	main.c:21: display_2("Hello World", "Bob is Great!", 0,3);
-      000105 75 50 F8         [24]  340 	mov	_display_2_PARM_2,#___str_1
-      000108 75 51 09         [24]  341 	mov	(_display_2_PARM_2 + 1),#(___str_1 >> 8)
-      00010B 75 52 80         [24]  342 	mov	(_display_2_PARM_2 + 2),#0x80
-      00010E E4               [12]  343 	clr	a
-      00010F F5 53            [12]  344 	mov	_display_2_PARM_3,a
-      000111 F5 54            [12]  345 	mov	(_display_2_PARM_3 + 1),a
-      000113 75 55 03         [24]  346 	mov	_display_2_PARM_4,#0x03
-      000116 F5 56            [12]  347 	mov	(_display_2_PARM_4 + 1),a
-      000118 90 09 EC         [24]  348 	mov	dptr,#___str_0
-      00011B 75 F0 80         [24]  349 	mov	b, #0x80
-      00011E 12 07 2D         [24]  350 	lcall	_display_2
-                                    351 ;	main.c:23: while(1){
-      000121                        352 00102$:
-                                    353 ;	main.c:24: display_poll();
-      000121 12 01 5F         [24]  354 	lcall	_display_poll
-                                    355 ;	main.c:25: button_poll();
-      000124 12 03 3F         [24]  356 	lcall	_button_poll
-                                    357 ;	main.c:26: display();
-      000127 12 02 DE         [24]  358 	lcall	_display
-                                    359 ;	main.c:27: blink();
-      00012A 12 04 68         [24]  360 	lcall	_blink
-                                    361 ;	main.c:28: I2C_poll();
-      00012D 12 05 A9         [24]  362 	lcall	_I2C_poll
-                                    363 ;	main.c:29: blink_timer();
-      000130 12 01 47         [24]  364 	lcall	_blink_timer
-                                    365 ;	main.c:31: }
-      000133 80 EC            [24]  366 	sjmp	00102$
-                                    367 ;------------------------------------------------------------
-                                    368 ;Allocation info for local variables in function 'init_debounce_timer'
-                                    369 ;------------------------------------------------------------
-                                    370 ;	main.c:33: void init_debounce_timer(void){
-                                    371 ;	-----------------------------------------
-                                    372 ;	 function init_debounce_timer
-                                    373 ;	-----------------------------------------
-      000135                        374 _init_debounce_timer:
-                                    375 ;	main.c:34: TH0 = 0x00;
-      000135 75 8C 00         [24]  376 	mov	_TH0,#0x00
-                                    377 ;	main.c:35: TL0 = 0x00;
-      000138 75 8A 00         [24]  378 	mov	_TL0,#0x00
-                                    379 ;	main.c:36: TR0 = 1;
-                                    380 ;	assignBit
-      00013B D2 8C            [12]  381 	setb	_TR0
-                                    382 ;	main.c:37: }
-      00013D 22               [24]  383 	ret
-                                    384 ;------------------------------------------------------------
-                                    385 ;Allocation info for local variables in function 'init_blink_timer'
-                                    386 ;------------------------------------------------------------
-                                    387 ;	main.c:39: void init_blink_timer(void){
-                                    388 ;	-----------------------------------------
-                                    389 ;	 function init_blink_timer
-                                    390 ;	-----------------------------------------
-      00013E                        391 _init_blink_timer:
-                                    392 ;	main.c:40: TH1 = 0x00;
-      00013E 75 8D 00         [24]  393 	mov	_TH1,#0x00
-                                    394 ;	main.c:41: TL1 = 0x00;
-      000141 75 8B 00         [24]  395 	mov	_TL1,#0x00
-                                    396 ;	main.c:42: TR1 = 1;
-                                    397 ;	assignBit
-      000144 D2 8E            [12]  398 	setb	_TR1
-                                    399 ;	main.c:43: }
-      000146 22               [24]  400 	ret
-                                    401 ;------------------------------------------------------------
-                                    402 ;Allocation info for local variables in function 'blink_timer'
-                                    403 ;------------------------------------------------------------
-                                    404 ;	main.c:45: void blink_timer(void){
-                                    405 ;	-----------------------------------------
-                                    406 ;	 function blink_timer
-                                    407 ;	-----------------------------------------
-      000147                        408 _blink_timer:
-                                    409 ;	main.c:46: if(TF1 == 1){
-      000147 30 8F 14         [24]  410 	jnb	_TF1,00103$
-                                    411 ;	main.c:47: TR1 = 0;
-                                    412 ;	assignBit
-      00014A C2 8E            [12]  413 	clr	_TR1
-                                    414 ;	main.c:48: BLINK_COUNTER++;
-      00014C 05 32            [12]  415 	inc	_BLINK_COUNTER
-      00014E E4               [12]  416 	clr	a
-      00014F B5 32 02         [24]  417 	cjne	a,_BLINK_COUNTER,00112$
-      000152 05 33            [12]  418 	inc	(_BLINK_COUNTER + 1)
-      000154                        419 00112$:
-                                    420 ;	main.c:49: TH1 = 0;
-      000154 75 8D 00         [24]  421 	mov	_TH1,#0x00
-                                    422 ;	main.c:50: TL1 = 0;
-      000157 75 8B 00         [24]  423 	mov	_TL1,#0x00
-                                    424 ;	main.c:51: TF1 = 0;
-                                    425 ;	assignBit
-      00015A C2 8F            [12]  426 	clr	_TF1
-                                    427 ;	main.c:52: TR1 = 1;
-                                    428 ;	assignBit
-      00015C D2 8E            [12]  429 	setb	_TR1
-      00015E                        430 00103$:
-                                    431 ;	main.c:54: }
-      00015E 22               [24]  432 	ret
-                                    433 	.area CSEG    (CODE)
-                                    434 	.area CONST   (CODE)
-                                    435 	.area CONST   (CODE)
-      0009EC                        436 ___str_0:
-      0009EC 48 65 6C 6C 6F 20 57   437 	.ascii "Hello World"
+      000000 02 00 21         [24]  287 	ljmp	__sdcc_gsinit_startup
+      000003 32               [24]  288 	reti
+      000004                        289 	.ds	7
+      00000B 32               [24]  290 	reti
+      00000C                        291 	.ds	7
+      000013 32               [24]  292 	reti
+      000014                        293 	.ds	7
+      00001B 02 01 63         [24]  294 	ljmp	_Timer1_ISR
+                                    295 ;--------------------------------------------------------
+                                    296 ; global & static initialisations
+                                    297 ;--------------------------------------------------------
+                                    298 	.area HOME    (CODE)
+                                    299 	.area GSINIT  (CODE)
+                                    300 	.area GSFINAL (CODE)
+                                    301 	.area GSINIT  (CODE)
+                                    302 	.globl __sdcc_gsinit_startup
+                                    303 	.globl __sdcc_program_startup
+                                    304 	.globl __start__stack
+                                    305 	.globl __mcs51_genXINIT
+                                    306 	.globl __mcs51_genXRAMCLEAR
+                                    307 	.globl __mcs51_genRAMCLEAR
+                                    308 	.area GSFINAL (CODE)
+      000111 02 00 1E         [24]  309 	ljmp	__sdcc_program_startup
+                                    310 ;--------------------------------------------------------
+                                    311 ; Home
+                                    312 ;--------------------------------------------------------
+                                    313 	.area HOME    (CODE)
+                                    314 	.area HOME    (CODE)
+      00001E                        315 __sdcc_program_startup:
+      00001E 02 01 14         [24]  316 	ljmp	_main
+                                    317 ;	return from main will return to caller
+                                    318 ;--------------------------------------------------------
+                                    319 ; code
+                                    320 ;--------------------------------------------------------
+                                    321 	.area CSEG    (CODE)
+                                    322 ;------------------------------------------------------------
+                                    323 ;Allocation info for local variables in function 'main'
+                                    324 ;------------------------------------------------------------
+                                    325 ;	main.c:13: void main(void){
+                                    326 ;	-----------------------------------------
+                                    327 ;	 function main
+                                    328 ;	-----------------------------------------
+      000114                        329 _main:
+                           000007   330 	ar7 = 0x07
+                           000006   331 	ar6 = 0x06
+                           000005   332 	ar5 = 0x05
+                           000004   333 	ar4 = 0x04
+                           000003   334 	ar3 = 0x03
+                           000002   335 	ar2 = 0x02
+                           000001   336 	ar1 = 0x01
+                           000000   337 	ar0 = 0x00
+                                    338 ;	main.c:14: TMOD = 0x01;
+      000114 75 89 01         [24]  339 	mov	_TMOD,#0x01
+                                    340 ;	main.c:15: init_display();
+      000117 12 07 9B         [24]  341 	lcall	_init_display
+                                    342 ;	main.c:16: init_debounce_timer();
+      00011A 12 01 4D         [24]  343 	lcall	_init_debounce_timer
+                                    344 ;	main.c:17: init_blink_timer();
+      00011D 12 01 56         [24]  345 	lcall	_init_blink_timer
+                                    346 ;	main.c:20: display_2("Hello World", "Bob is Great!", 0,3);
+      000120 75 50 27         [24]  347 	mov	_display_2_PARM_2,#___str_1
+      000123 75 51 0A         [24]  348 	mov	(_display_2_PARM_2 + 1),#(___str_1 >> 8)
+      000126 75 52 80         [24]  349 	mov	(_display_2_PARM_2 + 2),#0x80
+      000129 E4               [12]  350 	clr	a
+      00012A F5 53            [12]  351 	mov	_display_2_PARM_3,a
+      00012C F5 54            [12]  352 	mov	(_display_2_PARM_3 + 1),a
+      00012E 75 55 03         [24]  353 	mov	_display_2_PARM_4,#0x03
+      000131 F5 56            [12]  354 	mov	(_display_2_PARM_4 + 1),a
+      000133 90 0A 1B         [24]  355 	mov	dptr,#___str_0
+      000136 75 F0 80         [24]  356 	mov	b, #0x80
+      000139 12 07 5C         [24]  357 	lcall	_display_2
+                                    358 ;	main.c:22: while(1){
+      00013C                        359 00102$:
+                                    360 ;	main.c:23: display_poll();
+      00013C 12 01 8E         [24]  361 	lcall	_display_poll
+                                    362 ;	main.c:24: button_poll();
+      00013F 12 03 6E         [24]  363 	lcall	_button_poll
+                                    364 ;	main.c:25: display();
+      000142 12 03 0D         [24]  365 	lcall	_display
+                                    366 ;	main.c:26: blink();
+      000145 12 04 97         [24]  367 	lcall	_blink
+                                    368 ;	main.c:27: I2C_poll();
+      000148 12 05 D8         [24]  369 	lcall	_I2C_poll
+                                    370 ;	main.c:29: }
+      00014B 80 EF            [24]  371 	sjmp	00102$
+                                    372 ;------------------------------------------------------------
+                                    373 ;Allocation info for local variables in function 'init_debounce_timer'
+                                    374 ;------------------------------------------------------------
+                                    375 ;	main.c:31: void init_debounce_timer(void){
+                                    376 ;	-----------------------------------------
+                                    377 ;	 function init_debounce_timer
+                                    378 ;	-----------------------------------------
+      00014D                        379 _init_debounce_timer:
+                                    380 ;	main.c:32: TH0 = 0x00;
+      00014D 75 8C 00         [24]  381 	mov	_TH0,#0x00
+                                    382 ;	main.c:33: TL0 = 0x00;
+      000150 75 8A 00         [24]  383 	mov	_TL0,#0x00
+                                    384 ;	main.c:34: TR0 = 1;
+                                    385 ;	assignBit
+      000153 D2 8C            [12]  386 	setb	_TR0
+                                    387 ;	main.c:35: }
+      000155 22               [24]  388 	ret
+                                    389 ;------------------------------------------------------------
+                                    390 ;Allocation info for local variables in function 'init_blink_timer'
+                                    391 ;------------------------------------------------------------
+                                    392 ;	main.c:37: void init_blink_timer(void){
+                                    393 ;	-----------------------------------------
+                                    394 ;	 function init_blink_timer
+                                    395 ;	-----------------------------------------
+      000156                        396 _init_blink_timer:
+                                    397 ;	main.c:38: TH1 = 0x00;
+      000156 75 8D 00         [24]  398 	mov	_TH1,#0x00
+                                    399 ;	main.c:39: TL1 = 0x00;
+      000159 75 8B 00         [24]  400 	mov	_TL1,#0x00
+                                    401 ;	main.c:40: TR1 = 1;
+                                    402 ;	assignBit
+      00015C D2 8E            [12]  403 	setb	_TR1
+                                    404 ;	main.c:41: ET1 = 1;
+                                    405 ;	assignBit
+      00015E D2 AB            [12]  406 	setb	_ET1
+                                    407 ;	main.c:42: EA = 1;
+                                    408 ;	assignBit
+      000160 D2 AF            [12]  409 	setb	_EA
+                                    410 ;	main.c:43: }
+      000162 22               [24]  411 	ret
+                                    412 ;------------------------------------------------------------
+                                    413 ;Allocation info for local variables in function 'Timer1_ISR'
+                                    414 ;------------------------------------------------------------
+                                    415 ;	main.c:45: void Timer1_ISR(void) __interrupt (3) {
+                                    416 ;	-----------------------------------------
+                                    417 ;	 function Timer1_ISR
+                                    418 ;	-----------------------------------------
+      000163                        419 _Timer1_ISR:
+      000163 C0 E0            [24]  420 	push	acc
+      000165 C0 07            [24]  421 	push	ar7
+      000167 C0 06            [24]  422 	push	ar6
+      000169 C0 D0            [24]  423 	push	psw
+      00016B 75 D0 00         [24]  424 	mov	psw,#0x00
+                                    425 ;	main.c:46: TF1 = 0;
+                                    426 ;	assignBit
+      00016E C2 8F            [12]  427 	clr	_TF1
+                                    428 ;	main.c:47: TH1 = 0;
+      000170 75 8D 00         [24]  429 	mov	_TH1,#0x00
+                                    430 ;	main.c:48: TL1 = 0;
+      000173 75 8B 00         [24]  431 	mov	_TL1,#0x00
+                                    432 ;	main.c:49: TR1 = 1;
+                                    433 ;	assignBit
+      000176 D2 8E            [12]  434 	setb	_TR1
+                                    435 ;	main.c:50: BLINK_COUNTER++;
+      000178 AE 32            [24]  436 	mov	r6,_BLINK_COUNTER
+      00017A AF 33            [24]  437 	mov	r7,(_BLINK_COUNTER + 1)
+      00017C 74 01            [12]  438 	mov	a,#0x01
+      00017E 2E               [12]  439 	add	a, r6
+      00017F F5 32            [12]  440 	mov	_BLINK_COUNTER,a
+      000181 E4               [12]  441 	clr	a
+      000182 3F               [12]  442 	addc	a, r7
+      000183 F5 33            [12]  443 	mov	(_BLINK_COUNTER + 1),a
+                                    444 ;	main.c:51: }
+      000185 D0 D0            [24]  445 	pop	psw
+      000187 D0 06            [24]  446 	pop	ar6
+      000189 D0 07            [24]  447 	pop	ar7
+      00018B D0 E0            [24]  448 	pop	acc
+      00018D 32               [24]  449 	reti
+                                    450 ;	eliminated unneeded push/pop dpl
+                                    451 ;	eliminated unneeded push/pop dph
+                                    452 ;	eliminated unneeded push/pop b
+                                    453 	.area CSEG    (CODE)
+                                    454 	.area CONST   (CODE)
+                                    455 	.area CONST   (CODE)
+      000A1B                        456 ___str_0:
+      000A1B 48 65 6C 6C 6F 20 57   457 	.ascii "Hello World"
              6F 72 6C 64
-      0009F7 00                     438 	.db 0x00
-                                    439 	.area CSEG    (CODE)
-                                    440 	.area CONST   (CODE)
-      0009F8                        441 ___str_1:
-      0009F8 42 6F 62 20 69 73 20   442 	.ascii "Bob is Great!"
+      000A26 00                     458 	.db 0x00
+                                    459 	.area CSEG    (CODE)
+                                    460 	.area CONST   (CODE)
+      000A27                        461 ___str_1:
+      000A27 42 6F 62 20 69 73 20   462 	.ascii "Bob is Great!"
              47 72 65 61 74 21
-      000A05 00                     443 	.db 0x00
-                                    444 	.area CSEG    (CODE)
-                                    445 	.area XINIT   (CODE)
-                                    446 	.area CABS    (ABS,CODE)
+      000A34 00                     463 	.db 0x00
+                                    464 	.area CSEG    (CODE)
+                                    465 	.area XINIT   (CODE)
+                                    466 	.area CABS    (ABS,CODE)

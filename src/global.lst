@@ -280,14 +280,14 @@
                                     280 	.area GSINIT  (CODE)
                                     281 	.area GSFINAL (CODE)
                                     282 	.area GSINIT  (CODE)
-                                    283 ;	global.c:4: int SCREEN_FLAG = 0x00;
+                                    283 ;	.\global.c:4: int SCREEN_FLAG = 0x00;
       000000 E4               [12]  284 	clr	a
       000001 F5*00            [12]  285 	mov	_SCREEN_FLAG,a
       000003 F5*01            [12]  286 	mov	(_SCREEN_FLAG + 1),a
-                                    287 ;	global.c:5: int BLINK_MODE = 0;
+                                    287 ;	.\global.c:5: int BLINK_MODE = 0;
       000005 F5*02            [12]  288 	mov	_BLINK_MODE,a
       000007 F5*03            [12]  289 	mov	(_BLINK_MODE + 1),a
-                                    290 ;	global.c:6: int BLINK_COUNTER = 0;
+                                    290 ;	.\global.c:6: volatile int BLINK_COUNTER = 0;
       000009 F5*04            [12]  291 	mov	_BLINK_COUNTER,a
       00000B F5*05            [12]  292 	mov	(_BLINK_COUNTER + 1),a
                                     293 ;--------------------------------------------------------
@@ -302,7 +302,7 @@
                                     302 ;------------------------------------------------------------
                                     303 ;Allocation info for local variables in function 'reset_timer'
                                     304 ;------------------------------------------------------------
-                                    305 ;	global.c:8: void reset_timer(void){
+                                    305 ;	.\global.c:8: void reset_timer(void){
                                     306 ;	-----------------------------------------
                                     307 ;	 function reset_timer
                                     308 ;	-----------------------------------------
@@ -315,20 +315,20 @@
                            000002   315 	ar2 = 0x02
                            000001   316 	ar1 = 0x01
                            000000   317 	ar0 = 0x00
-                                    318 ;	global.c:9: TR0 = 0;
+                                    318 ;	.\global.c:9: TR0 = 0;
                                     319 ;	assignBit
       000000 C2 8C            [12]  320 	clr	_TR0
-                                    321 ;	global.c:10: TH0 = 0x00;
+                                    321 ;	.\global.c:10: TH0 = 0x00;
       000002 75 8C 00         [24]  322 	mov	_TH0,#0x00
-                                    323 ;	global.c:11: TL0 = 0x00;
+                                    323 ;	.\global.c:11: TL0 = 0x00;
       000005 75 8A 00         [24]  324 	mov	_TL0,#0x00
-                                    325 ;	global.c:12: TF0 = 0;
+                                    325 ;	.\global.c:12: TF0 = 0;
                                     326 ;	assignBit
       000008 C2 8D            [12]  327 	clr	_TF0
-                                    328 ;	global.c:13: TR0 = 1;
+                                    328 ;	.\global.c:13: TR0 = 1;
                                     329 ;	assignBit
       00000A D2 8C            [12]  330 	setb	_TR0
-                                    331 ;	global.c:14: }
+                                    331 ;	.\global.c:14: }
       00000C 22               [24]  332 	ret
                                     333 ;------------------------------------------------------------
                                     334 ;Allocation info for local variables in function 'delay'
@@ -337,14 +337,14 @@
                                     337 ;j                         Allocated to registers r6 r7 
                                     338 ;k                         Allocated to registers r4 r5 
                                     339 ;------------------------------------------------------------
-                                    340 ;	global.c:16: void delay(int i){
+                                    340 ;	.\global.c:16: void delay(int i){
                                     341 ;	-----------------------------------------
                                     342 ;	 function delay
                                     343 ;	-----------------------------------------
       00000D                        344 _delay:
       00000D AE 82            [24]  345 	mov	r6, dpl
       00000F AF 83            [24]  346 	mov	r7, dph
-                                    347 ;	global.c:18: for (j = i; j > 0; j--)
+                                    347 ;	.\global.c:18: for (j = i; j > 0; j--)
       000011                        348 00106$:
       000011 C3               [12]  349 	clr	c
       000012 E4               [12]  350 	clr	a
@@ -354,7 +354,7 @@
       000018 63 F0 80         [24]  354 	xrl	b,#0x80
       00001B 95 F0            [12]  355 	subb	a,b
       00001D 50 1E            [24]  356 	jnc	00108$
-                                    357 ;	global.c:19: for (k = 125; k > 0; k--);
+                                    357 ;	.\global.c:19: for (k = 125; k > 0; k--);
       00001F 7C 7D            [12]  358 	mov	r4,#0x7d
       000021 7D 00            [12]  359 	mov	r5,#0x00
       000023                        360 00104$:
@@ -370,14 +370,14 @@
       00002F 63 F0 80         [24]  370 	xrl	b,#0x80
       000032 95 F0            [12]  371 	subb	a,b
       000034 40 ED            [24]  372 	jc	00104$
-                                    373 ;	global.c:18: for (j = i; j > 0; j--)
+                                    373 ;	.\global.c:18: for (j = i; j > 0; j--)
       000036 1E               [12]  374 	dec	r6
       000037 BE FF 01         [24]  375 	cjne	r6,#0xff,00139$
       00003A 1F               [12]  376 	dec	r7
       00003B                        377 00139$:
       00003B 80 D4            [24]  378 	sjmp	00106$
       00003D                        379 00108$:
-                                    380 ;	global.c:20: }
+                                    380 ;	.\global.c:20: }
       00003D 22               [24]  381 	ret
                                     382 	.area CSEG    (CODE)
                                     383 	.area CONST   (CODE)
